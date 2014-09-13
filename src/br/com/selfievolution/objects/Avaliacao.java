@@ -3,7 +3,7 @@ package br.com.selfievolution.objects;
 
 public class Avaliacao {
 
-	private int id, idade, dobras;
+	private int id, iUsuario, idade, dobras;
 	private double peso;
 
 	public int getId() {

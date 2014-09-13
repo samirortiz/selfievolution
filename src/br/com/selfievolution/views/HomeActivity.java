@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ public class HomeActivity extends ActionBarActivity{
 
 	private HomeModel model;
 	private HomeController controller;
+	AlertDialog.Builder alertbox;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +49,7 @@ public class HomeActivity extends ActionBarActivity{
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	switch (item.getItemId()) {
-    	case R.id.action_search:
-    		break;      
+    	switch (item.getItemId()) {   
     		// action with ID action_refresh was selected
     	case R.id.action_sync:
     		
@@ -91,6 +91,38 @@ public class HomeActivity extends ActionBarActivity{
 
     	return true;
     }      
+    
+    @Override
+    //ação de voltar, estando na home
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+
+            alertbox = new AlertDialog.Builder(this);
+            alertbox.setTitle("Saindo do SelfiEvolution");
+            alertbox.setMessage("Deseja mesmo sair?");
+
+            alertbox.setPositiveButton("Sim",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                      	  SharedPreferences pref = getApplicationContext().getSharedPreferences("SelfieSession", 0);
+                          Editor edit = pref.edit();
+                          edit.clear();
+                          edit.commit();                        	
+                          finish();
+                        }
+                    });
+
+            alertbox.setNeutralButton("Não", new DialogInterface.OnClickListener() {
+            	public void onClick(DialogInterface arg0, int arg1) {}
+            });
+
+            alertbox.show();
+
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }    
     
     public void cadastrarAvaliacao(View v){
     	

@@ -13,7 +13,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import br.com.selfievolution.R;
 import br.com.selfievolution.models.AvaliacaoModel;
 import br.com.selfievolution.objects.Avaliacao;

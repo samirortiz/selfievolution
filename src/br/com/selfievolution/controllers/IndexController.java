@@ -3,8 +3,6 @@ package br.com.selfievolution.controllers;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.os.Environment;
 import br.com.selfievolution.models.IndexModel;
 import br.com.selfievolution.views.HomeActivity;
 import br.com.selfievolution.views.IndexActivity;
@@ -13,6 +11,7 @@ public class IndexController{
     
 	private IndexActivity activity;
     private IndexModel model;
+  
     
     public IndexController(IndexModel model, IndexActivity activity){
         this.activity = activity;
