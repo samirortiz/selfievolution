@@ -3,22 +3,22 @@ package br.com.selfievolution.controllers;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.FragmentActivity;
 import br.com.selfievolution.models.IndexModel;
 import br.com.selfievolution.views.HomeActivity;
-import br.com.selfievolution.views.IndexActivity;
 
 public class IndexController{
     
-	private IndexActivity activity;
+	private FragmentActivity activity;
     private IndexModel model;
   
     
-    public IndexController(IndexModel model, IndexActivity activity){
-        this.activity = activity;
+    public IndexController(IndexModel model, FragmentActivity fragmentActivity){
+        this.activity = fragmentActivity;
         this.model = model;
     }
  
-    public IndexActivity getActivity() {
+    public FragmentActivity getActivity() {
         return activity;
     }
  
@@ -28,6 +28,7 @@ public class IndexController{
     
     public void startApp(){
     	//testa a sessao - revisar
+    	
     	SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("SelfieSession", 0); 
         
     	//temporário    	
@@ -39,7 +40,8 @@ public class IndexController{
     	//
 
     	if(pref.getBoolean("logado", false)){
-    		Intent i = new Intent(activity, HomeActivity.class);
+
+    		Intent i = new Intent(getActivity(), HomeActivity.class);
     		activity.startActivity(i);
 
     	}

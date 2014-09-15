@@ -4,7 +4,7 @@ package br.com.selfievolution.objects;
 public class Usuario {
 
 	private int id;
-	private String ds_nome, ds_senha, ds_email;
+	private String ds_nome, ds_senha, ds_email, sexo;
 
 	public int getId() {
 		return id;
@@ -37,6 +37,14 @@ public class Usuario {
 
 	public void setSenha(String ds_senha) {
 		this.ds_senha = ds_senha;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 }

@@ -7,7 +7,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import br.com.selfievolution.objects.Avaliacao;
-import br.com.selfievolution.objects.Usuario;
 import br.com.selfievolution.utils.DBHandler;
 
 public class AvaliacaoModel {
@@ -60,6 +59,8 @@ public class AvaliacaoModel {
     		
     		list.add(avaliacao);
     	}
+    	
+    	c.close();
     	
     	return list;
 	}
