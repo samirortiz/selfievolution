@@ -11,6 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
         android:orientation="vertical" >
 
         <TextView
@@ -26,6 +27,7 @@
             android:id="@+id/nomeUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
@@ -37,10 +39,39 @@
             <requestFocus />
         </EditText>
 
+<TextView
+    android:id="@+id/textView3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:text="Sexo"
+    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+<RadioGroup
+    android:id="@+id/radioGroupSexo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radioM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="M" />
+
+                <RadioButton
+                    android:id="@+id/radioF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="F" />
+            </RadioGroup>        
+        
         <EditText
             android:id="@+id/emailUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:ems="10"
@@ -51,6 +82,7 @@
             android:id="@+id/senhaUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:layout_marginTop="20dp"

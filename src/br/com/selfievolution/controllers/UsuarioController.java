@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import br.com.selfievolution.R;
 import br.com.selfievolution.models.UsuarioModel;
 import br.com.selfievolution.objects.Usuario;
@@ -38,12 +39,23 @@ public class UsuarioController{
     	model = new UsuarioModel(activity);
     	
     	EditText nome = (EditText) activity.findViewById(R.id.nomeUsuario);
+    	RadioGroup sexo = (RadioGroup) activity.findViewById(R.id.radioGroupSexo);
     	EditText email = (EditText) activity.findViewById(R.id.emailUsuario);
     	EditText senha = (EditText) activity.findViewById(R.id.senhaUsuario);
     	
     	usuario.setNome(nome.getText().toString());
     	usuario.setEmail(email.getText().toString());
     	usuario.setSenha(senha.getText().toString());
+    	
+		switch (sexo.getCheckedRadioButtonId()) {
+		
+	    case R.id.radioM:
+    		usuario.setSexo("male");
+	        break;
+	    case R.id.radioF:
+	    	usuario.setSexo("male");
+	        break;
+	}    	
     	
     	if(model.insert(usuario)){
     		

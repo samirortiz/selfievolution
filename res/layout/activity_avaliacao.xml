@@ -1,122 +1,112 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     tools:context="${packageName}.${activityClass}" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Cadastro de Avaliação Física"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_height="match_parent"
+        android:gravity="center" >
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="54dp"
-        android:text="Dobras" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical" >
 
-    <RadioGroup
-        android:id="@+id/radioGroup1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spinnerDobras"
-        android:layout_marginLeft="34dp"
-        android:layout_toRightOf="@+id/textView2" >
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:text="Cadastro de Avaliação Física"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <RadioButton
-            android:id="@+id/radioM"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="M" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:text="Dobras" />
 
-        <RadioButton
-            android:id="@+id/radioF"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="F" />
-    </RadioGroup>
+            <Spinner
+                android:id="@+id/spinnerDobras"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-10dp" />
 
-    <Spinner
-        android:id="@+id/spinnerDobras"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/radioGroup1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="22dp" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:text="Idade"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView4"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="26dp"
-        android:text="Peso"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+            <EditText
+                android:id="@+id/idade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-20dp"
+                android:ems="10"
+                android:inputType="number" >
 
-    <EditText
-        android:id="@+id/peso"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView5"
-        android:layout_alignBottom="@+id/textView5"
-        android:layout_alignLeft="@+id/idade"
-        android:layout_alignRight="@+id/idade"
-        android:ems="10"
-        android:inputType="numberDecimal" />
+                <requestFocus />
+            </EditText>
 
-    <EditText
-        android:id="@+id/idade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/radioGroup1"
-        android:layout_alignRight="@+id/spinnerDobras"
-        android:layout_centerVertical="true"
-        android:ems="10"
-        android:inputType="number" >
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:text="Peso"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <requestFocus />
-    </EditText>
+            <EditText
+                android:id="@+id/peso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-20dp"
+                android:ems="10"
+                android:inputType="numberDecimal" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/idade"
-        android:layout_alignBottom="@+id/idade"
-        android:layout_alignLeft="@+id/textView3"
-        android:text="Idade"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:text="Altura" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/radioGroup1"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_marginBottom="22dp"
-        android:text="Sexo"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-20dp"
+                android:ems="10"
+                android:inputType="numberDecimal" />
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="29dp"
-        android:text="Salvar" 
-        android:onClick="salvarAvaliacao"/>
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:onClick="salvarAvaliacao"
+                android:text="Salvar" />
 
-</RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

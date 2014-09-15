@@ -12,6 +12,7 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -41,9 +42,14 @@ public class HomeActivity extends ActionBarActivity{
 		SharedPreferences pref = getApplicationContext().getSharedPreferences("SelfieSession", 0);
 		ImageView imgPerfil = (ImageView) findViewById(R.id.userImage);
 
-		 URL img_value = null;
+		//permite reescrita na mainthread... quando possível, trocar para uma asynctask
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+	    StrictMode.setThreadPolicy(policy);
+		
+	    //imagem do perfil do facebook
+		 URL img = null;
 		 try {
-			img_value = new URL("https://graph.facebook.com/"+pref.getString("id_facebook", "")+"/picture");
+			img = new URL("https://graph.facebook.com/"+pref.getString("id_facebook", "")+"/picture");
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,12 +58,12 @@ public class HomeActivity extends ActionBarActivity{
 		Bitmap mIcon1 = null;
 		try {
 			
-			mIcon1 = BitmapFactory.decodeStream(img_value.openConnection().getInputStream());
+			mIcon1 = BitmapFactory.decodeStream(img.openConnection().getInputStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 
+
 		 imgPerfil.setImageBitmap(mIcon1);
 		 		
 		
