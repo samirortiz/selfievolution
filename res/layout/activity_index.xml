@@ -14,6 +14,14 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical" >
 
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/se" />
+
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
