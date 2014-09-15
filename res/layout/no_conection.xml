@@ -15,7 +15,7 @@
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_margin="20dp"
         android:gravity="center"
-        android:text="Você precisa estar conectado à internet para efetuar o primeiro login no sistema!"
+        android:text="@string/text_noConnection"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="15sp" />
@@ -29,6 +29,6 @@
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_margin="20dp"
         android:onClick="Login"
-        android:text="Tentar novamente" />
+        android:text="@string/button_tryAgain" />
 
 </RelativeLayout>

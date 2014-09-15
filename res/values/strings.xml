@@ -3,5 +3,39 @@
 
     <string name="app_name">SelfiEvolution</string>
     <string name="hello_world">Bem vindo ao SelfiEvolution!</string>
-	<string name="app_id">1448965625364281</string>
+    <string name="app_id">1448965625364281</string>
+    <string name="mail">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="button_save">Salvar</string>
+
+    <!-- Strings for ...res\layout\activity_avaliacao.xml -->
+    <string name="text_skinfold">Dobras</string>
+    <string name="radio_male">M</string>
+    <string name="radio_female">F</string>
+    <string name="text_weight">Peso</string>
+    <string name="text_age">Idade</string>
+    <string name="text_sex">Sexo</string>
+    <string name="text_head_evaluation">Cadastro de Avaliação Física</string>
+    <string name="text_height">Altura</string>
+
+    <!-- Strings for activity ...res\layout\activity_home.xml -->
+    <string name="text_welcome">Bem Vindo </string>
+    <string name="button_addEvaluation">Adicionar Avaliação</string>
+
+    <!-- Strings for activity ...res\layout\activity_index.xml -->
+    <string name="button_enter">Entrar</string>
+    <string name="text_firstTime">Primeira vez? Clique aqui e Cadastre-se</string>
+
+    <!-- Strings for activity ...res\layout\activity_usuario.xml -->
+    <string name="text_addUser">Cadastro de Usuário</string>
+    <string name="text_fullName">Nome completo</string>
+
+    <!-- Strings for activity ...res\layout\activity_index.xml
+    &#8230; is the unicode for ... (three dots).
+     -->
+    <string name="text_withoutEvaluation">Sem avaliações até o momento&#8230;</string>
+
+    <!-- Strings for ..res\layout\no_conection.xml -->
+    <string name="text_noConnection">Você precisa estar conectado à internet para efetuar o primeiro login no sistema!</string>
+    <string name="button_tryAgain">Tentar novamente</string>
 </resources>
