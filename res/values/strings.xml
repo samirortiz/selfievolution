@@ -7,6 +7,7 @@
     <string name="mail">E-mail</string>
     <string name="password">Senha</string>
     <string name="button_save">Salvar</string>
+    <string name="button_back">Voltar</string>
 
     <!-- Strings for ...res\layout\activity_avaliacao.xml -->
     <string name="text_skinfold">Dobras</string>
@@ -30,12 +31,27 @@
     <string name="text_addUser">Cadastro de Usuário</string>
     <string name="text_fullName">Nome completo</string>
 
-    <!-- Strings for activity ...res\layout\activity_index.xml
-    &#8230; is the unicode for ... (three dots).
-     -->
+    <!--
+    Strings for activity ...res\layout\activity_index.xml
+    &#8230; is the unicode for ... (three dots).
+    -->
     <string name="text_withoutEvaluation">Sem avaliações até o momento&#8230;</string>
 
     <!-- Strings for ..res\layout\no_conection.xml -->
     <string name="text_noConnection">Você precisa estar conectado à internet para efetuar o primeiro login no sistema!</string>
     <string name="button_tryAgain">Tentar novamente</string>
+    <string name="title_activity_dobras">Dobras</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- Strings for activity ..res\layout\activity_dobra.xml -->
+    <string name="text_headDobra">Calculo de dobras</string>
+    <string name="text_subescapular">Subescapular</string>
+    <string name="text_triceps">Tríceps</string>
+    <string name="text_peitoral">Peitoral</string>
+    <string name="text_axilarMedia">Axilar Média</string>
+    <string name="text_supraIliaca">Supra-Ilíaca</string>
+    <string name="text_abdominal">Abdôminal</string>
+    <string name="text_femural">Femural Médio</string>
+    <string name="button_calc">Calcular</string>
+
 </resources>

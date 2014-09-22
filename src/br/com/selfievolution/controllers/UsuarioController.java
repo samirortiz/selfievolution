@@ -1,6 +1,9 @@
 package br.com.selfievolution.controllers;
 
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -43,53 +46,73 @@ public class UsuarioController{
     	EditText email = (EditText) activity.findViewById(R.id.emailUsuario);
     	EditText senha = (EditText) activity.findViewById(R.id.senhaUsuario);
     	
-    	usuario.setNome(nome.getText().toString());
-    	usuario.setEmail(email.getText().toString());
-    	usuario.setSenha(senha.getText().toString());
-    	
-		switch (sexo.getCheckedRadioButtonId()) {
-		
-	    case R.id.radioM:
-    		usuario.setSexo("male");
-	        break;
-	    case R.id.radioF:
-	    	usuario.setSexo("male");
-	        break;
-	}    	
-    	
-    	if(model.insert(usuario)){
-    		
-    		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-			builder.setTitle("Sucesso!");
-			builder.setMessage("Usuário cadastrado com sucesso!");
-			builder.setPositiveButton("Entrar", new OnClickListener() {
-				
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
-					Intent i = new Intent(activity.getApplicationContext(), HomeActivity.class);
-					activity.startActivity(i);
-					
-				}
-			});
-			
-			builder.create().show();
-
-			//salvo os dados na session
-        	SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
-        	Editor editor = pref.edit();
-        	editor.putBoolean("logado", true);
-        	editor.putString("nome", nome.getText().toString());
-        	editor.commit();			
-			
-    	}else{
-    		
+    	if(!checkEmail(email.getText().toString())){
     		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 			builder.setTitle("Erro!");
-			builder.setMessage("Email já está sendo utilizado!!");
-			
+			builder.setMessage("O formato de email é inválido");
 			builder.create().show();
+    	} else{
+	    	usuario.setNome(nome.getText().toString());
+	    	usuario.setEmail(email.getText().toString());
+	    	usuario.setSenha(senha.getText().toString());
+	    	
+			switch (sexo.getCheckedRadioButtonId()) {
+			
+		    case R.id.radioM:
+	    		usuario.setSexo("male");
+		        break;
+		    case R.id.radioF:
+		    	usuario.setSexo("male");
+		        break;
+			}    	
+	    	
+	    	if(model.insert(usuario)){
+	    		
+	    		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+				builder.setTitle("Sucesso!");
+				builder.setMessage("Usuário cadastrado com sucesso!");
+				builder.setPositiveButton("Entrar", new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						Intent i = new Intent(activity.getApplicationContext(), HomeActivity.class);
+						activity.startActivity(i);
+						
+					}
+				});
+				
+				builder.create().show();
+	
+				//salvo os dados na session
+	        	SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
+	        	Editor editor = pref.edit();
+	        	editor.putBoolean("logado", true);
+	        	editor.putString("nome", nome.getText().toString());
+	        	editor.commit();			
+				
+	    	}else{
+	    		
+	    		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+				builder.setTitle("Erro!");
+				builder.setMessage("Email já está sendo utilizado!!");
+				
+				builder.create().show();
+	    	}
     	}
+    }
+    
+    public boolean checkEmail(String email){
+        boolean isEmailIdValid = false;
+        if (email != null && email.length() > 0) {
+            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(email);
+            if (matcher.matches()) {
+                isEmailIdValid = true;
+            }
+        }
+        return isEmailIdValid;
     }
     
 }
