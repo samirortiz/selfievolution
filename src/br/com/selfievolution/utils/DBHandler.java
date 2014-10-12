@@ -48,7 +48,9 @@ public class DBHandler extends SQLiteOpenHelper {
 
 		strb2.append(" CREATE TABLE IF NOT EXISTS avaliacoes (");
 		strb2.append(" id integer primary key autoincrement,");
-		strb2.append(" dobras integer,");
+		strb2.append(" imc decimal(10,2),");
+		strb2.append(" gordura decimal(10,2),");
+		strb2.append(" data date,");
 		strb2.append(" idade integer,");
 		strb2.append(" peso decimal(10,2),");
 		strb2.append(" altura decimal(10,2),");

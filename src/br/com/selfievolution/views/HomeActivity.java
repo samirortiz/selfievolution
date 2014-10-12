@@ -25,6 +25,7 @@ import android.widget.Toast;
 import br.com.selfievolution.R;
 import br.com.selfievolution.controllers.HomeController;
 import br.com.selfievolution.models.HomeModel;
+import br.com.selfievolution.utils.Utils;
 
 import com.facebook.Session;
 
@@ -42,41 +43,42 @@ public class HomeActivity extends ActionBarActivity{
 		SharedPreferences pref = getApplicationContext().getSharedPreferences("SelfieSession", 0);
 		ImageView imgPerfil = (ImageView) findViewById(R.id.userImage);
 
-		//permite reescrita na mainthread... quando possível, trocar para uma asynctask
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-	    StrictMode.setThreadPolicy(policy);
+		if(Utils.verificaConexao(this)){
 		
-	    //imagem do perfil do facebook
-		 URL img = null;
-		 try {
-			img = new URL("https://graph.facebook.com/"+pref.getString("id_facebook", "")+"/picture");
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 
-		Bitmap mIcon1 = null;
-		try {
+			//permite reescrita na mainthread... quando possível, trocar para uma asynctask
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		    StrictMode.setThreadPolicy(policy);
 			
-			mIcon1 = BitmapFactory.decodeStream(img.openConnection().getInputStream());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    //imagem do perfil do facebook
+			 URL img = null;
+			 try {
+				img = new URL("https://graph.facebook.com/"+pref.getString("id_facebook", "")+"/picture");
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+			Bitmap mIcon1 = null;
+			try {
+				mIcon1 = BitmapFactory.decodeStream(img.openConnection().getInputStream());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+			imgPerfil.setImageBitmap(mIcon1);
 		}
-
-		 imgPerfil.setImageBitmap(mIcon1);
-		 		
 		
         //pego o text view e coloco o nome do funcionário
         TextView tv = (TextView) findViewById(R.id.nome);
 
         tv.setText("Bem Vindo " + pref.getString("nome", null));		
-		
+
 		controller = new HomeController(model, this);
 		controller.startHome();		
-		
+
 	}
-	
+
 	@Override
 	public void onResume() {
 	    super.onResume();

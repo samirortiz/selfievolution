@@ -24,15 +24,15 @@ public class UsuarioModel {
 		db.close();
 	}
 
-	public int autenticacao(String usuario, String senha){
+	public int autenticacao(String email, String senha){
 
-		String crypt = UnixCrypt.crypt(usuario,senha);
+		String crypt = UnixCrypt.crypt(email,senha);
 
 		Cursor c = db.rawQuery("SELECT id, ds_email, ds_senha FROM usuarios " +
-								"WHERE ds_email = ? AND ds_senha = ?", new String[] {usuario, crypt});
+								"WHERE ds_email = ? AND ds_senha = ?", new String[] {email, crypt});
 		
 		if(c.moveToFirst()){
-			Log.d("Login", "Login de "+ usuario + " efetuado com sucesso!");
+			Log.d("Login", "Login de "+ email + " efetuado com sucesso!");
 
 			return c.getInt(0);
 			

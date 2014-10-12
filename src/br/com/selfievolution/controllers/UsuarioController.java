@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import br.com.selfievolution.R;
 import br.com.selfievolution.models.UsuarioModel;
 import br.com.selfievolution.objects.Usuario;
+import br.com.selfievolution.utils.UnixCrypt;
 import br.com.selfievolution.views.HomeActivity;
 import br.com.selfievolution.views.UsuarioActivity;
 
@@ -47,32 +48,38 @@ public class UsuarioController{
     	EditText senha = (EditText) activity.findViewById(R.id.senhaUsuario);
     	
     	if(!checkEmail(email.getText().toString())){
+    		
     		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 			builder.setTitle("Erro!");
 			builder.setMessage("O formato de email é inválido");
 			builder.create().show();
+
     	} else{
+
 	    	usuario.setNome(nome.getText().toString());
 	    	usuario.setEmail(email.getText().toString());
-	    	usuario.setSenha(senha.getText().toString());
 	    	
+	    	//encriptação da senha
+	    	String crypt = UnixCrypt.crypt(email.getText().toString(),senha.getText().toString());
+	    	usuario.setSenha(crypt);
+
 			switch (sexo.getCheckedRadioButtonId()) {
-			
-		    case R.id.radioM:
-	    		usuario.setSexo("male");
-		        break;
-		    case R.id.radioF:
-		    	usuario.setSexo("male");
-		        break;
+
+			    case R.id.radioM:
+		    		usuario.setSexo("male");
+			        break;
+			    case R.id.radioF:
+			    	usuario.setSexo("female");
+			        break;
 			}    	
-	    	
+    	
 	    	if(model.insert(usuario)){
-	    		
+
 	    		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 				builder.setTitle("Sucesso!");
 				builder.setMessage("Usuário cadastrado com sucesso!");
 				builder.setPositiveButton("Entrar", new OnClickListener() {
-					
+
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub
@@ -89,7 +96,12 @@ public class UsuarioController{
 	        	Editor editor = pref.edit();
 	        	editor.putBoolean("logado", true);
 	        	editor.putString("nome", nome.getText().toString());
-	        	editor.commit();			
+	        	editor.commit();
+	        	
+	        	Intent i = new Intent(getActivity(), HomeActivity.class);
+	        	getActivity().startActivity(i);
+	        	
+	        	getActivity().finish();
 				
 	    	}else{
 	    		
@@ -101,6 +113,7 @@ public class UsuarioController{
 	    	}
     	}
     }
+
     
     public boolean checkEmail(String email){
         boolean isEmailIdValid = false;

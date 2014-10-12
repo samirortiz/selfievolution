@@ -32,9 +32,6 @@ public class UsuarioActivity extends ActionBarActivity{
     }	
     
     public void cadastrarUsuario(View v){
-    	
     	controller.salvarUsuario();
-
-    	
-    }
+    }   
 }
