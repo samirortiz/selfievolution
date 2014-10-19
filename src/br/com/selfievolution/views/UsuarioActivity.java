@@ -1,5 +1,6 @@
 package br.com.selfievolution.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -13,11 +14,22 @@ public class UsuarioActivity extends ActionBarActivity{
 
 	private UsuarioModel model;
 	private UsuarioController controller;
+	boolean aluno;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_usuario);
+		
+		Intent i = getIntent();
+		if(i.getExtras() != null){
+			aluno = i.getExtras().getBoolean("cadastroAluno");
+		}
+	
+		if(aluno){
+			setContentView(R.layout.activity_cadastro_aluno);
+		}else{
+			setContentView(R.layout.activity_usuario);
+		}
 		
 		controller = new UsuarioController(model, this);		
 		
@@ -32,6 +44,13 @@ public class UsuarioActivity extends ActionBarActivity{
     }	
     
     public void cadastrarUsuario(View v){
+    	
     	controller.salvarUsuario();
-    }   
+    }
+    
+    public void salvarAluno(View v){
+
+    	controller.salvarAluno();
+    }
+
 }

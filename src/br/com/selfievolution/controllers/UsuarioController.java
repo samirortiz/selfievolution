@@ -13,6 +13,7 @@ import android.content.SharedPreferences.Editor;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import br.com.selfievolution.R;
+import br.com.selfievolution.models.RoleModel;
 import br.com.selfievolution.models.UsuarioModel;
 import br.com.selfievolution.objects.Usuario;
 import br.com.selfievolution.utils.UnixCrypt;
@@ -56,8 +57,11 @@ public class UsuarioController{
 
     	} else{
 
+        	SharedPreferences pref = getActivity().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
+    		
 	    	usuario.setNome(nome.getText().toString());
 	    	usuario.setEmail(email.getText().toString());
+	    	usuario.setIdRole(pref.getInt("id_role", 0));
 	    	
 	    	//encriptação da senha
 	    	String crypt = UnixCrypt.crypt(email.getText().toString(),senha.getText().toString());
@@ -72,8 +76,10 @@ public class UsuarioController{
 			    	usuario.setSexo("female");
 			        break;
 			}    	
-    	
-	    	if(model.insert(usuario)){
+			
+			long idUsuario = model.insert(usuario);
+			
+	    	if(idUsuario > 0){
 
 	    		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 				builder.setTitle("Sucesso!");
@@ -92,10 +98,11 @@ public class UsuarioController{
 				builder.create().show();
 	
 				//salvo os dados na session
-	        	SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
 	        	Editor editor = pref.edit();
 	        	editor.putBoolean("logado", true);
+	        	editor.putInt("id", (int)idUsuario);
 	        	editor.putString("nome", nome.getText().toString());
+
 	        	editor.commit();
 	        	
 	        	Intent i = new Intent(getActivity(), HomeActivity.class);
@@ -113,7 +120,79 @@ public class UsuarioController{
 	    	}
     	}
     }
+    
+    
+    public void salvarAluno(){
+    	
+    	Usuario aluno = new Usuario();
+    	model = new UsuarioModel(activity);
+    	
+    	SharedPreferences pref = getActivity().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
 
+    	EditText nome = (EditText) activity.findViewById(R.id.nomeAluno);
+    	RadioGroup sexo = (RadioGroup) activity.findViewById(R.id.sexoAluno);
+    	EditText email = (EditText) activity.findViewById(R.id.emailALuno);
+    	
+    	if(!checkEmail(email.getText().toString())){
+    		
+    		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+			builder.setTitle("Erro!");
+			builder.setMessage("O formato de email é inválido");
+			builder.create().show();
+
+    	} else{
+
+    		aluno.setNome(nome.getText().toString());
+    		aluno.setEmail(email.getText().toString());
+    		aluno.setIdProfessor(pref.getInt("id", 0));
+	    	
+    		aluno.setIdRole(2);
+
+			switch (sexo.getCheckedRadioButtonId()) {
+
+			    case R.id.radioM:
+			    	aluno.setSexo("male");
+			        break;
+			    case R.id.radioF:
+			    	aluno.setSexo("female");
+			        break;
+			}
+			
+			long idAluno = model.insert(aluno);
+			
+	    	if(idAluno > 0){
+
+	    		final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+				builder.setTitle("Sucesso!");
+				builder.setMessage("Aluno cadastrado com sucesso!");
+				builder.setNeutralButton("OK", new OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						builder.create().dismiss();
+						
+						getActivity().finish();
+						
+						Intent i = new Intent(getActivity(), HomeActivity.class);
+						getActivity().startActivity(i);
+						
+					}
+				});
+				
+				builder.create().show();
+	        	
+				
+	    	}else{
+	    		
+	    		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+				builder.setTitle("Erro!");
+				builder.setMessage("Email já está sendo utilizado!!");
+				
+				builder.create().show();
+	    	}
+    	}
+    }
     
     public boolean checkEmail(String email){
         boolean isEmailIdValid = false;

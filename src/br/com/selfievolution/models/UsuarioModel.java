@@ -14,7 +14,7 @@ import br.com.selfievolution.utils.UnixCrypt;
 public class UsuarioModel {
 	private SQLiteDatabase db;
 	private String tableName = "usuarios";
-	private String[] columns = new String[] { "id", "ds_nome", "ds_email", "ds_senha" };
+	private String[] columns = new String[] { "id", "nome", "email", "senha", "sexo", "data_nascimento", "id_role", "id_professor" };
 	
 	public UsuarioModel(Context ctx) {
 		db = DBHandler.getInstance(ctx).getWritableDatabase();
@@ -28,8 +28,8 @@ public class UsuarioModel {
 
 		String crypt = UnixCrypt.crypt(email,senha);
 
-		Cursor c = db.rawQuery("SELECT id, ds_email, ds_senha FROM usuarios " +
-								"WHERE ds_email = ? AND ds_senha = ?", new String[] {email, crypt});
+		Cursor c = db.rawQuery("SELECT id, email, senha FROM usuarios " +
+								"WHERE email = ? AND senha = ?", new String[] {email, crypt});
 		
 		if(c.moveToFirst()){
 			Log.d("Login", "Login de "+ email + " efetuado com sucesso!");
@@ -44,14 +44,17 @@ public class UsuarioModel {
 
 	public ContentValues selectUser(String id){
 
-		Cursor c = db.rawQuery("SELECT id, ds_nome, ds_email FROM usuarios " +
+		Cursor c = db.rawQuery("SELECT id, nome, email, sexo, data_nascimento, id_role FROM usuarios " +
 								"WHERE id = ?", new String[] {id});
 		
 		if(c.moveToFirst()){
 			ContentValues cv = new ContentValues();
 			cv.put("id", c.getInt(0));
-			cv.put("ds_nome", c.getString(1));
-			cv.put("ds_email", c.getString(2));
+			cv.put("nome", c.getString(1));
+			cv.put("email", c.getString(2));
+			cv.put("sexo", c.getString(3));
+			cv.put("data_nascimento", c.getString(4));
+			cv.put("id_role", c.getString(5));
 
 			return cv;
 			
@@ -64,7 +67,7 @@ public class UsuarioModel {
 	public boolean checkUserByEmail(String email){
 
 		Cursor c = db.rawQuery("SELECT id FROM usuarios " +
-								"WHERE ds_email = ?", new String[] {email});
+								"WHERE email = ?", new String[] {email});
 		
 		if(c.moveToFirst()){
 
@@ -86,9 +89,10 @@ public class UsuarioModel {
     		
     		Usuario usuario = new Usuario();
     		usuario.setId(c.getInt(c.getColumnIndex("id")));
-    		usuario.setNome(c.getString(c.getColumnIndex("ds_nome_usuario")));
-    		usuario.setSenha(c.getString(c.getColumnIndex("ds_senha")));
-    		usuario.setEmail(c.getString(c.getColumnIndex("ds_email_usuario")));
+    		usuario.setNome(c.getString(c.getColumnIndex("nome")));
+    		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
+    		usuario.setEmail(c.getString(c.getColumnIndex("email")));
+    		usuario.setEmail(c.getString(c.getColumnIndex("data_nascimento")));
     		
     		list.add(usuario);
     	}
@@ -96,23 +100,45 @@ public class UsuarioModel {
     	return list;
 	}
 
-	public boolean insert(Usuario usuario) {
+	public ArrayList<Usuario> selectByProfessor(Integer id) {
+
+		Cursor c = db.rawQuery("SELECT u.id, u.nome FROM usuarios u WHERE id_professor = ?", new String[] {String.valueOf(id)});
+    	
+    	ArrayList<Usuario> list = new ArrayList<Usuario>();
+    	
+    	while (c.moveToNext()) {
+    		
+    		Usuario usuario = new Usuario();
+    		usuario.setId(c.getInt(c.getColumnIndex("id")));
+    		usuario.setNome(c.getString(c.getColumnIndex("nome")));
+    		
+    		list.add(usuario);
+    	}
+    	
+    	return list;
+	}	
+	
+	public long insert(Usuario usuario) {
 		
 		long rowId = 0;
 		
 		if(checkUserByEmail(usuario.getEmail())){
 		
 			ContentValues cv = new ContentValues();
-	        cv.put("ds_nome", usuario.getNome());
-	        cv.put("ds_email", usuario.getEmail());
-	        cv.put("ds_senha", usuario.getSenha());
+	        cv.put("nome", usuario.getNome());
+	        cv.put("email", usuario.getEmail());
+	        cv.put("senha", usuario.getSenha());
+	        cv.put("data_nascimento", usuario.getNascimento());
+	        cv.put("id_role", usuario.getIdRole());
+	        cv.put("id_professor", usuario.getIdProfessor());
 
 	        rowId = db.insert(tableName, null, cv);
 
 		}
 		
-        return (rowId > 0);
+        return rowId;
 	}
+	
 
 	public boolean update(Usuario usuario) {
 		

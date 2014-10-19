@@ -17,58 +17,20 @@ import br.com.selfievolution.R;
 import br.com.selfievolution.models.AvaliacaoModel;
 import br.com.selfievolution.objects.Avaliacao;
 import br.com.selfievolution.views.AvaliacaoActivity;
+import br.com.selfievolution.views.AvaliacoesActivity;
 import br.com.selfievolution.views.HomeActivity;
 
 public class AvaliacaoController{
     
 	private AvaliacaoActivity activity;
     private AvaliacaoModel model;
-    private Spinner spinnerDobras;
-    public int dobras;
     ArrayList<String> opcoes = new ArrayList<String>();
-    ArrayAdapter<String> spinnerArrayAdapter;
     
     public AvaliacaoController(AvaliacaoModel model, AvaliacaoActivity activity){
         this.activity = activity;
         this.model = model;
-
-        opcoes.add("3");
-        opcoes.add("7");
-        
-        spinnerDobras = (Spinner) activity.findViewById(R.id.spinnerDobras);
-        
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                 activity, android.R.layout.simple_spinner_item, opcoes);
-        
-        spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
-
-        spinnerDobras = (Spinner) activity.findViewById(R.id.spinnerDobras);
-        spinnerDobras.setAdapter(spinnerArrayAdapter);
-        
-		spinnerDobras.setOnItemSelectedListener(new ListenerSpinner());
-				
-		
-        
     }
- 
-    public class ListenerSpinner implements OnItemSelectedListener{
 
-		@Override
-		public void onItemSelected(AdapterView<?> parent, View view,
-				int position, long id) {
-
-			spinnerDobras.setSelection(position);
-			
-		}
-
-		@Override
-		public void onNothingSelected(AdapterView<?> parent) {
-			// TODO Auto-generated method stub
-			
-		}
-    	
-    }
-    
     public AvaliacaoActivity getActivity() {
         return activity;
     }
@@ -81,13 +43,14 @@ public class AvaliacaoController{
     	Avaliacao avaliacao = new Avaliacao();
     	model = new AvaliacaoModel(activity);
 
-    	EditText idade = (EditText) activity.findViewById(R.id.idade);
+    	EditText idade  = (EditText) activity.findViewById(R.id.idade);
     	EditText peso  = (EditText) activity.findViewById(R.id.peso);
-    	spinnerDobras = (Spinner) activity.findViewById(R.id.spinnerDobras);
+    	EditText altura  = (EditText) activity.findViewById(R.id.altura);
     	
-    	avaliacao.setDobras(Integer.parseInt(spinnerDobras.getSelectedItem().toString()));
     	avaliacao.setIdade(Integer.parseInt(idade.getText().toString()));
-    	avaliacao.setPeso(Integer.parseInt(peso.getText().toString()));
+    	avaliacao.setPeso(Double.parseDouble(peso.getText().toString()));
+    	avaliacao.setAltura(Double.parseDouble(altura.getText().toString()));
+    	avaliacao.setIdAluno(Integer.parseInt(getActivity().getIntent().getStringExtra("idAluno")));
 
     	if(model.insert(avaliacao)){
     		
@@ -99,7 +62,9 @@ public class AvaliacaoController{
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					Intent i = new Intent(activity.getApplicationContext(), HomeActivity.class);
+					Intent i = new Intent(activity.getApplicationContext(), AvaliacoesActivity.class);
+					i.putExtra("idAluno", getActivity().getIntent().getStringExtra("idAluno"));
+					i.putExtra("nomeAluno", getActivity().getIntent().getStringExtra("nomeAluno"));
 					activity.startActivity(i);
 					
 				}

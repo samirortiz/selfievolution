@@ -31,6 +31,10 @@
     <string name="text_addUser">Cadastro de Usuário</string>
     <string name="text_fullName">Nome completo</string>
 
+    <!-- Strings for activity ...res\layout\activity_cadastro_aluno.xml -->
+    <string name="text_addAluno">Cadastro de Aluno</string>
+    
+    
     <!--
     Strings for activity ...res\layout\activity_index.xml
     &#8230; is the unicode for ... (three dots).

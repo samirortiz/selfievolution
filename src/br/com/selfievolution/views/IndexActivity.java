@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import br.com.selfievolution.R;
+import br.com.selfievolution.controllers.IndexController;
+import br.com.selfievolution.models.IndexModel;
 import br.com.selfievolution.models.UsuarioModel;
 import br.com.selfievolution.objects.Usuario;
 
@@ -21,13 +23,14 @@ import com.facebook.Session;
 public class IndexActivity extends FragmentActivity {
 
 	IndexActivity activity;
+	IndexModel model;
 	private FacebookFragment mainFragment;
 	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-
+ 
 	    /*
 	    SharedPreferences pref = getApplicationContext().getSharedPreferences("SelfieSession", 0); 
     	Editor edit = pref.edit();
@@ -36,7 +39,7 @@ public class IndexActivity extends FragmentActivity {
     	getApplicationContext().deleteDatabase(Environment.getExternalStorageDirectory().getPath()+"/selfie.db");
     	System.exit(0);
     	*/	    
-	    
+	   
 	    if (savedInstanceState == null) {
 	        // Add the fragment on initial activity setup
 	        mainFragment = new FacebookFragment();
@@ -46,6 +49,9 @@ public class IndexActivity extends FragmentActivity {
 	        mainFragment = (FacebookFragment) getSupportFragmentManager().findFragmentById(android.R.id.content);
 	    }
 	    
+	    IndexController controller = new IndexController(model, this);
+	    controller.startApp();
+	    
 	}	
 
 	@Override
@@ -53,21 +59,7 @@ public class IndexActivity extends FragmentActivity {
 	    super.onActivityResult(requestCode, resultCode, data);
 	    Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
 	}	 
-	
-	
-	
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-    	MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.home_action_bar, menu);               
-
-        return super.onCreateOptionsMenu(menu);
-    }
-    
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        return super.onPrepareOptionsMenu(menu);
-    }    
+   
     
     public void onResume() {
     	super.onResume();	
@@ -89,7 +81,7 @@ public class IndexActivity extends FragmentActivity {
     }    
     
     public void cadastrar(View v){
-    	Intent i = new Intent(this, UsuarioActivity.class);
+    	Intent i = new Intent(this, RoleActivity.class);
     	startActivity(i);
     }
     
@@ -111,8 +103,9 @@ public class IndexActivity extends FragmentActivity {
 	    		//salvo os dados na session
 	        	SharedPreferences pref = getApplicationContext().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
 	        	Editor editor = pref.edit();
+	        	editor.putInt("id", idUsuario);
 	        	editor.putBoolean("logado", true);
-	        	editor.putString("nome", cv.get("ds_nome").toString());
+	        	editor.putString("nome", cv.get("nome").toString());
 	        	editor.commit();
 	        	
 	        	Intent i = new Intent(this, HomeActivity.class);

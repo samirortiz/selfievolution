@@ -2,33 +2,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-
-            <ImageView
-                android:id="@+id/userImage"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/com_facebook_profile_default_icon" />
-
-        <Button
-            android:id="@+id/button1"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:onClick="cadastrarAvaliacao"
-            android:text="@string/button_addEvaluation" />
-
-        <ListView
-            android:id="@+id/listAvaliacoes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/button1"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/userImage" >
-
-        </ListView>
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:contentDescription="picture"
+            android:src="@drawable/com_facebook_profile_default_icon" />
 
         <TextView
             android:id="@+id/nome"
@@ -39,5 +19,35 @@
             android:layout_margin="20dp"
             android:text="@string/text_welcome"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/listAlunos"
+            android:layout_below="@+id/userImage"
+            android:layout_marginTop="20dp"
+            android:text="Meus Alunos" />
+
+        <ListView
+            android:id="@+id/listAlunos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button1"
+            android:layout_below="@+id/textView1"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp" >
+
+        </ListView>
+
+        <Button
+            android:id="@+id/button1"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:onClick="cadastrarAluno"
+            android:text="Cadastrar Aluno" />
     
 </RelativeLayout>

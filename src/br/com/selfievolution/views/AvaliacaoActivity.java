@@ -20,11 +20,9 @@ public class AvaliacaoActivity extends ActionBarActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_avaliacao);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); 
-		
-		controller = new AvaliacaoController(model, this);
-		//controller.startAvaliacao();	
 
-		
+		controller = new AvaliacaoController(model, this);	
+	
 	}
 	
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -10,62 +10,50 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 import br.com.selfievolution.R;
-import br.com.selfievolution.models.HomeModel;
-import br.com.selfievolution.models.UsuarioModel;
-import br.com.selfievolution.objects.Usuario;
-import br.com.selfievolution.views.AdapterAlunosListView;
+import br.com.selfievolution.models.AvaliacaoModel;
+import br.com.selfievolution.models.AvaliacoesModel;
+import br.com.selfievolution.objects.Avaliacao;
+import br.com.selfievolution.views.AdapterAvaliacoesListView;
 import br.com.selfievolution.views.AlunoListView;
+import br.com.selfievolution.views.AvaliacaoActivity;
+import br.com.selfievolution.views.AvaliacaoListView;
 import br.com.selfievolution.views.AvaliacoesActivity;
-import br.com.selfievolution.views.HomeActivity;
 
-public class HomeController{
+public class AvaliacoesController{
     
-	private HomeActivity activity;
-    private HomeModel model;
+	private AvaliacoesActivity activity;
+    private AvaliacoesModel model;
     
-    public HomeController(HomeModel model, HomeActivity activity){
+    public AvaliacoesController(AvaliacoesModel model, AvaliacoesActivity activity){
         this.activity = activity;
         this.model = model;
        
-    }
- 
-    public HomeActivity getActivity() {
-        return activity;
-    }
- 
-    public HomeModel getModel() {
-        return model;
-    }    
-    
-    
-    public void startHome(){
-
-    	SharedPreferences pref = getActivity().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
+        SharedPreferences pref = getActivity().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
+    	Intent in = getActivity().getIntent();
+        
+    	final ListView list = (ListView) activity.findViewById(R.id.listAvaliacoes);
+    	ArrayList<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
+    	ArrayList<AvaliacaoListView> dados = new ArrayList<AvaliacaoListView>();
     	
-    	final ListView list = (ListView) activity.findViewById(R.id.listAlunos);
-    	ArrayList<Usuario> alunos = new ArrayList<Usuario>();
-    	ArrayList<AlunoListView> dados = new ArrayList<AlunoListView>();
+    	AvaliacaoModel modelAvaliacao = new AvaliacaoModel(activity);
+    	avaliacoes = modelAvaliacao.selectByAluno(Integer.parseInt(in.getStringExtra("idAluno")));
     	
-    	UsuarioModel modelUsuario = new UsuarioModel(activity);
-    	alunos = modelUsuario.selectByProfessor(pref.getInt("id", 0));
-    	
-    	if(alunos.size() == 0){
-			
-    		//adapter vazio
-			View empty = activity.getLayoutInflater().inflate(R.layout.aluno_empty_list, null, true);
+    	if(avaliacoes.size() == 0){
+    		
+			//adapter vazio
+			View empty = activity.getLayoutInflater().inflate(R.layout.avaliacao_empty_list, null, true);
 			activity.addContentView(empty, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-			list.setEmptyView(empty);
+			list.setEmptyView(empty);  
 			
     	}else{
     	
-	    	for (int i = 0; i < alunos.size(); i++) {
-				AlunoListView a = new AlunoListView(alunos.get(i).getImagem(),alunos.get(i).getId(), alunos.get(i).getNome());
+	    	for (int i = 0; i < avaliacoes.size(); i++) {
+				AvaliacaoListView a = new AvaliacaoListView(avaliacoes.get(i).getId(), avaliacoes.get(i).getDate());
 				dados.add(a);
 			}
 	    	
-	    	AdapterAlunosListView adapter = new AdapterAlunosListView(getActivity(), dados);
+	    	AdapterAvaliacoesListView adapter = new AdapterAvaliacoesListView(getActivity(), dados);
 	    	
 	    	//View header = (View) getActivity().getLayoutInflater().inflate(R.layout.header_alunos_list,null);
 	    	//list.addHeaderView(header);
@@ -82,21 +70,32 @@ public class HomeController{
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					// TODO Auto-generated method stub
-					Intent i = new Intent(view.getContext(), AvaliacoesActivity.class);
+					Intent i = new Intent(getActivity(), AvaliacaoActivity.class);
 					
-					TextView idAluno = (TextView) view.findViewById(R.id.idAluno);
-					TextView nomeAluno = (TextView) view.findViewById(R.id.nomeAluno);
-
-					i.putExtra("idAluno", idAluno.getText().toString());
-					i.putExtra("nomeAluno", nomeAluno.getText().toString());
+					i.putExtra("idAluno", list.getItemAtPosition(position).getClass());
 
 					getActivity().startActivity(i);
 				}
 			});
-    	}
+    	}        
+        
+    }
+ 
+    public AvaliacoesActivity getActivity() {
+        return activity;
+    }
+ 
+    public AvaliacoesModel getModel() {
+        return model;
     }    
     
-/*    public void startHome(){
+    
+    public void startAvaliacoes(){
+
+    	
+    }    
+    
+/*    public void startAvaliacoes(){
 
     	ListView list = (ListView) activity.findViewById(R.id.listAlunos);
     	ArrayList<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();

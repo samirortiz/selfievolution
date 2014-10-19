@@ -41,9 +41,10 @@ public class HomeActivity extends ActionBarActivity{
 		setContentView(R.layout.activity_home);
 
 		SharedPreferences pref = getApplicationContext().getSharedPreferences("SelfieSession", 0);
+		
 		ImageView imgPerfil = (ImageView) findViewById(R.id.userImage);
 
-		if(Utils.verificaConexao(this)){
+		/*if(Utils.verificaConexao(this)){
 		
 			//permite reescrita na mainthread... quando possível, trocar para uma asynctask
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -67,7 +68,7 @@ public class HomeActivity extends ActionBarActivity{
 			}
 	
 			imgPerfil.setImageBitmap(mIcon1);
-		}
+		}*/
 		
         //pego o text view e coloco o nome do funcionário
         TextView tv = (TextView) findViewById(R.id.nome);
@@ -178,9 +179,10 @@ public class HomeActivity extends ActionBarActivity{
         }
     }    
     
-    public void cadastrarAvaliacao(View v){
+    public void cadastrarAluno(View v){
     	
-    	Intent i = new Intent(this, AvaliacaoActivity.class);
+    	Intent i = new Intent(this, UsuarioActivity.class);
+    	i.putExtra("cadastroAluno", true);
     	startActivity(i);
     }
 }
