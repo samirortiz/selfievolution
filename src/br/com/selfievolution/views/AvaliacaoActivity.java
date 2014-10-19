@@ -30,7 +30,7 @@ public class AvaliacaoActivity extends ActionBarActivity{
 		actionBar.setHomeButtonEnabled(true);
 		actionBar.setTitle("Voltar");
 		
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); 
+		//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); 
 
 		controller = new AvaliacaoController(model, this);	
 	
