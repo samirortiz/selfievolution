@@ -1,7 +1,6 @@
 package br.com.selfievolution.utils;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -15,11 +14,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,7 +22,7 @@ public class ServerDelegate {
 
 	//private static String urlServidor = "http://agronet.agrobrasilseguros.com.br/rotinas/agrows.php";
 	//private static String urlServidor = "http://agronet.samir.dev.com:81/agrows.php";
-	private static String urlServidor = "http://10.0.100.4:81/agrows.php";
+	private static String urlServidor = "http://10.0.0.13/selfie/ws.php";
 
 	private static InputStream getWebData(String url) {
 
@@ -86,7 +80,68 @@ public class ServerDelegate {
 		}
 		return null;
 	}
+	
+	public static <E> String sincronizarProfessores(ArrayList<E> dados) {
+
+		try {
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+			String json = gson.toJson(dados);
+
+			InputStream is = postWebData(urlServidor, json);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+			
+			StringBuilder str = new StringBuilder();
+			String line = null;
+
+			while ((line = reader.readLine()) != null) {
+				str.append(line);
+			}
+
+			System.out.println(str);
+			return str.toString();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}	
+	
+	public static <E> String sincronizarAlunos(ArrayList<E> dados) {
+
+		try {
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+			String json = gson.toJson(dados);
+
+			InputStream is = postWebData(urlServidor, json);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+			
+			StringBuilder str = new StringBuilder();
+			String line = null;
+
+			while ((line = reader.readLine()) != null) {
+				str.append(line);
+			}
+
+			System.out.println(str);
+			return str.toString();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}		
+	
+	
 /*
+ * 
 	//valida a empresa no WS
 	public static Empresa getEmpresa(String idEmpresa, String codAcesso) {
 

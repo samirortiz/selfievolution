@@ -58,7 +58,8 @@ public class DBHandler extends SQLiteOpenHelper {
 		strb1.append(" sexo varchar(100),");
 		strb1.append(" data_nascimento date,");
 		strb1.append(" id_role integer,");
-		strb1.append(" id_professor integer)");
+		strb1.append(" id_professor integer,");
+		strb1.append(" sync integer default 0)");
 
 		db.execSQL(strb1.toString());        	
 		

@@ -29,10 +29,9 @@ public class Usuario {
 		return email;
 	}
 	
-	public void setEmail(String ds_email) {
-		this.email = ds_email;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-
 
 	public String getSenha() {
 		return senha;

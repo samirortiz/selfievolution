@@ -43,7 +43,7 @@ public class UsuarioController{
     	Usuario usuario = new Usuario();
     	model = new UsuarioModel(activity);
     	
-    	EditText nome = (EditText) activity.findViewById(R.id.nomeUsuario);
+    	final EditText nome = (EditText) activity.findViewById(R.id.nomeUsuario);
     	RadioGroup sexo = (RadioGroup) activity.findViewById(R.id.radioGroupSexo);
     	EditText email = (EditText) activity.findViewById(R.id.emailUsuario);
     	EditText senha = (EditText) activity.findViewById(R.id.senhaUsuario);
@@ -57,7 +57,7 @@ public class UsuarioController{
 
     	} else{
 
-        	SharedPreferences pref = getActivity().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
+        	final SharedPreferences pref = getActivity().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
     		
 	    	usuario.setNome(nome.getText().toString());
 	    	usuario.setEmail(email.getText().toString());
@@ -77,7 +77,7 @@ public class UsuarioController{
 			        break;
 			}    	
 			
-			long idUsuario = model.insert(usuario);
+			final long idUsuario = model.insert(usuario);
 			
 	    	if(idUsuario > 0){
 
@@ -88,28 +88,27 @@ public class UsuarioController{
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						Intent i = new Intent(activity.getApplicationContext(), HomeActivity.class);
-						activity.startActivity(i);
+						
+						//salvo os dados na session
+			        	Editor editor = pref.edit();
+			        	editor.putBoolean("logado", true);
+			        	editor.putInt("id", (int)idUsuario);
+			        	editor.putString("nome", nome.getText().toString());
+
+			        	editor.commit();
+			        	
+			        	getActivity().finish();		
+			        	
+			        	Intent i = new Intent(getActivity(), HomeActivity.class);
+			        	getActivity().startActivity(i);
+			        	
+			        					
 						
 					}
 				});
 				
 				builder.create().show();
-	
-				//salvo os dados na session
-	        	Editor editor = pref.edit();
-	        	editor.putBoolean("logado", true);
-	        	editor.putInt("id", (int)idUsuario);
-	        	editor.putString("nome", nome.getText().toString());
 
-	        	editor.commit();
-	        	
-	        	Intent i = new Intent(getActivity(), HomeActivity.class);
-	        	getActivity().startActivity(i);
-	        	
-	        	getActivity().finish();
-				
 	    	}else{
 	    		
 	    		AlertDialog.Builder builder = new AlertDialog.Builder(activity);

@@ -14,7 +14,7 @@ import br.com.selfievolution.utils.UnixCrypt;
 public class UsuarioModel {
 	private SQLiteDatabase db;
 	private String tableName = "usuarios";
-	private String[] columns = new String[] { "id", "nome", "email", "senha", "sexo", "data_nascimento", "id_role", "id_professor" };
+	private String[] columns = new String[] { "id", "nome", "email", "senha", "sexo", "data_nascimento", "id_role", "id_professor", "sync" };
 	
 	public UsuarioModel(Context ctx) {
 		db = DBHandler.getInstance(ctx).getWritableDatabase();
@@ -44,7 +44,7 @@ public class UsuarioModel {
 
 	public ContentValues selectUser(String id){
 
-		Cursor c = db.rawQuery("SELECT id, nome, email, sexo, data_nascimento, id_role FROM usuarios " +
+		Cursor c = db.rawQuery("SELECT id, nome, email, sexo, data_nascimento, id_role, id_professor FROM usuarios " +
 								"WHERE id = ?", new String[] {id});
 		
 		if(c.moveToFirst()){
@@ -55,6 +55,7 @@ public class UsuarioModel {
 			cv.put("sexo", c.getString(3));
 			cv.put("data_nascimento", c.getString(4));
 			cv.put("id_role", c.getString(5));
+			cv.put("id_professor", c.getString(6));
 
 			return cv;
 			
@@ -90,16 +91,106 @@ public class UsuarioModel {
     		Usuario usuario = new Usuario();
     		usuario.setId(c.getInt(c.getColumnIndex("id")));
     		usuario.setNome(c.getString(c.getColumnIndex("nome")));
-    		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
     		usuario.setEmail(c.getString(c.getColumnIndex("email")));
-    		usuario.setEmail(c.getString(c.getColumnIndex("data_nascimento")));
-    		
+    		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
+    		usuario.setSexo(c.getString(c.getColumnIndex("sexo")));
+    		usuario.setNascimento(c.getString(c.getColumnIndex("data_nascimento")));
+    		usuario.setIdRole(c.getInt(c.getColumnIndex("id_role")));
+    		usuario.setIdProfessor(c.getInt(c.getColumnIndex("id_professor")));
+
     		list.add(usuario);
     	}
     	
     	return list;
 	}
 
+	public ArrayList<Usuario> selectAllProfessoresToSync() {
+		
+		Cursor c = db.rawQuery("SELECT * FROM usuarios " +
+				"WHERE sync = ? and id_professor = ?", new String[] {"0", "0"});
+
+    	ArrayList<Usuario> list = new ArrayList<Usuario>();
+    	
+    	while (c.moveToNext()) {
+    		
+    		Usuario usuario = new Usuario();
+    		usuario.setId(c.getInt(c.getColumnIndex("id")));
+    		usuario.setNome(c.getString(c.getColumnIndex("nome")));
+    		usuario.setEmail(c.getString(c.getColumnIndex("email")));
+    		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
+    		usuario.setSexo(c.getString(c.getColumnIndex("sexo")));
+    		usuario.setNascimento(c.getString(c.getColumnIndex("data_nascimento")));
+    		usuario.setIdRole(c.getInt(c.getColumnIndex("id_role")));
+    		usuario.setIdProfessor(c.getInt(c.getColumnIndex("id_professor")));
+
+    		list.add(usuario);
+    		
+    		
+    		db.rawQuery("UPDATE usuarios SET sync = ?" +
+						"WHERE id = ?", new String[] {"true", String.valueOf(c.getInt(c.getColumnIndex("id")))});
+    	}
+    	
+    	return list;
+	}		
+	
+	public ArrayList<Usuario> selectAllToSync() {
+		
+		Cursor c = db.rawQuery("SELECT * FROM usuarios " +
+				"WHERE sync = ?", new String[] {"0"});
+    	
+    	ArrayList<Usuario> list = new ArrayList<Usuario>();
+    	
+    	while (c.moveToNext()) {
+    		
+    		Usuario usuario = new Usuario();
+    		usuario.setId(c.getInt(c.getColumnIndex("id")));
+    		usuario.setNome(c.getString(c.getColumnIndex("nome")));
+    		usuario.setEmail(c.getString(c.getColumnIndex("email")));
+    		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
+    		usuario.setSexo(c.getString(c.getColumnIndex("sexo")));
+    		usuario.setNascimento(c.getString(c.getColumnIndex("data_nascimento")));
+    		usuario.setIdRole(c.getInt(c.getColumnIndex("id_role")));
+    		usuario.setIdProfessor(c.getInt(c.getColumnIndex("id_professor")));
+
+    		list.add(usuario);
+    		
+    		
+    		db.rawQuery("UPDATE usuarios SET sync = ?" +
+						"WHERE id = ?", new String[] {"true", String.valueOf(c.getInt(c.getColumnIndex("id")))});
+    	}
+    	
+    	return list;
+	}	
+	
+	public ArrayList<Usuario> selectAllAlunosToSync() {
+		
+		Cursor c = db.rawQuery("SELECT * FROM usuarios " +
+				"WHERE sync = ? and id_professor > ?", new String[] {"0", "0"});
+    	
+    	ArrayList<Usuario> list = new ArrayList<Usuario>();
+    	
+    	while (c.moveToNext()) {
+    		
+    		Usuario usuario = new Usuario();
+    		usuario.setId(c.getInt(c.getColumnIndex("id")));
+    		usuario.setNome(c.getString(c.getColumnIndex("nome")));
+    		usuario.setEmail(c.getString(c.getColumnIndex("email")));
+    		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
+    		usuario.setSexo(c.getString(c.getColumnIndex("sexo")));
+    		usuario.setNascimento(c.getString(c.getColumnIndex("data_nascimento")));
+    		usuario.setIdRole(c.getInt(c.getColumnIndex("id_role")));
+    		usuario.setIdProfessor(c.getInt(c.getColumnIndex("id_professor")));
+
+    		list.add(usuario);
+    		
+    		
+    		db.rawQuery("UPDATE usuarios SET sync = ?" +
+						"WHERE id = ?", new String[] {"true", String.valueOf(c.getInt(c.getColumnIndex("id")))});
+    	}
+    	
+    	return list;
+	}	
+	
 	public ArrayList<Usuario> selectByProfessor(Integer id) {
 
 		Cursor c = db.rawQuery("SELECT u.id, u.nome FROM usuarios u WHERE id_professor = ?", new String[] {String.valueOf(id)});
@@ -118,6 +209,7 @@ public class UsuarioModel {
     	return list;
 	}	
 	
+
 	public long insert(Usuario usuario) {
 		
 		long rowId = 0;
@@ -150,6 +242,17 @@ public class UsuarioModel {
         
         return (result > 0);
 	}
+	
+	public boolean syncUsuario(Usuario usuario) {
+		
+		ContentValues cv = new ContentValues();
+		cv.put("sync", 1);
+
+        int result = db.update(tableName, cv, "id = ?", 
+        		new String[] { String.valueOf(usuario.getId()) });
+        
+        return (result > 0);
+	}	
 	
 	public boolean delete(Usuario usuario) {
 		

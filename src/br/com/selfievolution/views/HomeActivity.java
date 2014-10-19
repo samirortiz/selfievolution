@@ -100,6 +100,7 @@ public class HomeActivity extends ActionBarActivity{
     		
     		//atualiza home
     		controller = new HomeController(model, this);
+    		controller.sincronizarDados();
     		
     		break;
     		// action with ID action_settings was selected

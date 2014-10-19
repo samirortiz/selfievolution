@@ -2,19 +2,25 @@ package br.com.selfievolution.controllers;
 
 import java.util.ArrayList;
 
+import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import br.com.selfievolution.R;
 import br.com.selfievolution.models.HomeModel;
 import br.com.selfievolution.models.UsuarioModel;
 import br.com.selfievolution.objects.Usuario;
+import br.com.selfievolution.utils.ServerDelegate;
+import br.com.selfievolution.utils.Utils;
 import br.com.selfievolution.views.AdapterAlunosListView;
 import br.com.selfievolution.views.AlunoListView;
 import br.com.selfievolution.views.AvaliacoesActivity;
@@ -24,10 +30,14 @@ public class HomeController{
     
 	private HomeActivity activity;
     private HomeModel model;
+    ProgressDialog pd;
+    final SharedPreferences pref;
     
     public HomeController(HomeModel model, HomeActivity activity){
         this.activity = activity;
         this.model = model;
+        
+        pref = getActivity().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
        
     }
  
@@ -41,8 +51,6 @@ public class HomeController{
     
     
     public void startHome(){
-
-    	SharedPreferences pref = getActivity().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
     	
     	final ListView list = (ListView) activity.findViewById(R.id.listAlunos);
     	ArrayList<Usuario> alunos = new ArrayList<Usuario>();
@@ -72,7 +80,7 @@ public class HomeController{
 	    	
 	    	list.setAdapter(adapter);
 	    	
-			//Cor quando a lista é selecionada para rolagem.
+			//Cor quando a lista Ã© selecionada para rolagem.
 			list.setCacheColorHint(Color.TRANSPARENT);	    	
 	    	list.setDividerHeight(2);
 	    	
@@ -96,6 +104,78 @@ public class HomeController{
     	}
     }    
     
+    
+    public String sincronizarDados(){
+    	
+    	if(Utils.verificaConexao(getActivity())){
+    	
+	    	final AsyncTask<Void, Void, Void> getDados = new AsyncTask<Void, Void, Void>() {
+				
+				@Override
+				protected void onPreExecute() {
+					
+					pd = new ProgressDialog(activity);
+					pd.setTitle("Sincronizando com o servidor");
+					pd.setMessage("Por favor, aguarde!");
+					pd.setCancelable(false);
+					pd.setIndeterminate(true);
+					pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+					pd.show();
+				}
+					
+				@Override
+				protected Void doInBackground(Void... arg0) {
+					
+					UsuarioModel modelUsuario = new UsuarioModel(getActivity());
+					ArrayList<Usuario> listUsuarios = new ArrayList<Usuario>();
+					
+					listUsuarios = modelUsuario.selectAllProfessoresToSync();
+	
+					if(ServerDelegate.sincronizarProfessores(listUsuarios).equals("ok")){
+						for (int i = 0; i < listUsuarios.size(); i++) {
+							modelUsuario.syncUsuario(listUsuarios.get(i));
+						}
+					}
+					
+					listUsuarios.clear();
+					listUsuarios = modelUsuario.selectAllAlunosToSync();
+					
+					if(ServerDelegate.sincronizarAlunos(listUsuarios).equals("ok")){
+						for (int i = 0; i < listUsuarios.size(); i++) {
+							modelUsuario.syncUsuario(listUsuarios.get(i));
+						}
+					}				
+					
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException a) {
+						// TODO Auto-generated catch block
+						a.printStackTrace();
+					}
+					return null;
+				}
+	
+				@Override
+				protected void onPostExecute(Void result) {
+					
+					if (pd!=null) {
+						pd.dismiss();
+	
+						startHome();
+					}
+				}
+	
+			};
+	    	
+			getDados.execute((Void[])null);	
+    	
+    	}else{
+    		Toast.makeText(getActivity(), "Conecte Ã  internet para sincronizar os dados!", Toast.LENGTH_LONG).show();
+    	}
+    	
+		return null;
+    }
+    
 /*    public void startHome(){
 
     	ListView list = (ListView) activity.findViewById(R.id.listAlunos);
@@ -115,7 +195,7 @@ public class HomeController{
 	    	for (int i = 0; i < avaliacoes.size(); i++) {
 				Avaliacao avaliacao = new Avaliacao();
 				avaliacao.setId(avaliacoes.get(i).getId());
-				dados.add("Avaliação Nº "+avaliacao.getId());
+				dados.add("AvaliaÃ§Ã£o NÂº "+avaliacao.getId());
 			}
 	    	
 	    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, android.R.id.text1, dados);
