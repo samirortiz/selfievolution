@@ -2,9 +2,11 @@ package br.com.selfievolution.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import br.com.selfievolution.R;
 import br.com.selfievolution.controllers.UsuarioController;
@@ -26,6 +28,9 @@ public class UsuarioActivity extends ActionBarActivity{
 		}
 	
 		if(aluno){
+			ActionBar actionBar = getSupportActionBar();
+			actionBar.setDisplayHomeAsUpEnabled(true);
+			actionBar.setTitle("Home");;
 			setContentView(R.layout.activity_cadastro_aluno);
 		}else{
 			setContentView(R.layout.activity_usuario);
@@ -42,6 +47,18 @@ public class UsuarioActivity extends ActionBarActivity{
 
         return super.onCreateOptionsMenu(menu);
     }	
+    
+	  @Override
+	  public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	      // Respond to the action bar's Up/Home button
+	      case android.R.id.home:
+	    	  this.finish();
+	          return true;
+	    }
+	 
+	    return super.onOptionsItemSelected(item);
+	  }    
     
     public void cadastrarUsuario(View v){
     	

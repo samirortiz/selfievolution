@@ -16,17 +16,18 @@
         android:id="@+id/listAvaliacoes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/nomeAluno"
-        android:layout_margin="20dp" >
+        android:layout_below="@+id/textView1"
+        android:layout_margin="10dp" >
+
     </ListView>
 
     <TextView
         android:id="@+id/nomeAluno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/alunoImage"
+        android:layout_centerHorizontal="true"    
         android:layout_margin="20dp"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -39,5 +40,23 @@
         android:layout_alignTop="@+id/nomeAluno"
         android:text=""
         android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/alunoImage"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
+        android:src="@drawable/com_facebook_profile_default_icon" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/alunoImage"
+        android:layout_below="@+id/alunoImage"
+        android:layout_marginTop="20dp"
+        android:text="Avaliações" />
 
 </RelativeLayout>

@@ -72,7 +72,7 @@ public class AdapterAlunosListView extends BaseAdapter
         AvaliacaoModel model = new AvaliacaoModel(convertView.getContext());
         int count = model.countAvaliacoes(item.getId());
         
-        ((TextView) convertView.findViewById(R.id.semAvaliacoes)).setText(String.valueOf("Avaliações cadastradas: "+count));
+        ((TextView) convertView.findViewById(R.id.semAvaliacoes)).setText((count > 0 ? String.valueOf("Avaliações: "+count) : "Sem avaliações" ));
         
         if ( position % 2 == 0){
         	convertView.setBackgroundResource(R.drawable.listview_selector_even);

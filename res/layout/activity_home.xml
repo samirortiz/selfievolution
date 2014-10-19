@@ -27,7 +27,7 @@
             android:layout_alignLeft="@+id/listAlunos"
             android:layout_below="@+id/userImage"
             android:layout_marginTop="20dp"
-            android:text="Meus Alunos" />
+            android:text="Alunos" />
 
         <ListView
             android:id="@+id/listAlunos"
@@ -36,7 +36,7 @@
             android:layout_above="@+id/button1"
             android:layout_below="@+id/textView1"
             android:layout_centerHorizontal="true"
-            android:layout_margin="20dp" >
+            android:layout_margin="10dp" >
 
         </ListView>
 

@@ -20,10 +20,6 @@ public class IndexController{
     public IndexController(IndexModel model, IndexActivity activity){
         this.activity = activity;
         this.model = model;
-        
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-		String currentDate = sdf.format(new Date());
-		System.out.println(currentDate);
 
     }
  
