@@ -50,18 +50,30 @@ public class DBHandler extends SQLiteOpenHelper {
 
 		StringBuilder strb1 = new StringBuilder();
 
-		strb1.append(" CREATE TABLE IF NOT EXISTS usuarios (");
+		strb1.append(" CREATE TABLE IF NOT EXISTS alunos (");
 		strb1.append(" id integer primary key autoincrement,");
 		strb1.append(" nome varchar(100),");
 		strb1.append(" email varchar(100),");
 		strb1.append(" senha varchar(100),");
 		strb1.append(" sexo varchar(100),");
 		strb1.append(" data_nascimento date,");
-		strb1.append(" id_role integer,");
 		strb1.append(" id_professor integer,");
 		strb1.append(" sync integer default 0)");
 
 		db.execSQL(strb1.toString());        	
+		
+		StringBuilder strb10 = new StringBuilder();
+
+		strb10.append(" CREATE TABLE IF NOT EXISTS professores (");
+		strb10.append(" id integer primary key autoincrement,");
+		strb10.append(" nome varchar(100),");
+		strb10.append(" email varchar(100),");
+		strb10.append(" senha varchar(100),");
+		strb10.append(" sexo varchar(100),");
+		strb10.append(" data_nascimento date,");
+		strb10.append(" sync integer default 0)");
+
+		db.execSQL(strb10.toString());		
 		
 		Log.d("DBHandler", "criando tabela de avaliacoes...");
 

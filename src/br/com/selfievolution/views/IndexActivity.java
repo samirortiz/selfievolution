@@ -5,18 +5,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import br.com.selfievolution.R;
 import br.com.selfievolution.controllers.IndexController;
 import br.com.selfievolution.models.IndexModel;
-import br.com.selfievolution.models.UsuarioModel;
-import br.com.selfievolution.objects.Usuario;
+import br.com.selfievolution.models.ProfessorModel;
 
 import com.facebook.Session;
 
@@ -92,7 +88,7 @@ public class IndexActivity extends FragmentActivity {
     	
     	if(!email.getText().toString().equals("") && !senha.getText().toString().equals("")){
     	
-    		UsuarioModel usuario = new UsuarioModel(this);
+    		ProfessorModel usuario = new ProfessorModel(this);
     		
     		int idUsuario = usuario.autenticacao(email.getText().toString(), senha.getText().toString());
     		

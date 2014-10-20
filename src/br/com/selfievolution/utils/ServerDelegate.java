@@ -4,15 +4,19 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
 import com.google.gson.Gson;
@@ -57,7 +61,7 @@ public class ServerDelegate {
 			HttpPost post = new HttpPost(url);
 			post.setHeader("Accept", "application/json");
             post.setHeader("Content-type", "application/json;charset=UTF-8");
-			post.getParams().setParameter("jsonpost", json);            
+			post.getParams().setParameter("jsonpost", json);
             
 			StringEntity se = new StringEntity(json);
 			se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
@@ -84,7 +88,7 @@ public class ServerDelegate {
 	public static <E> String sincronizarProfessores(ArrayList<E> dados) {
 
 		try {
-
+			//sinalizar pro php que são professores
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 			String json = gson.toJson(dados);
@@ -111,9 +115,9 @@ public class ServerDelegate {
 	}	
 	
 	public static <E> String sincronizarAlunos(ArrayList<E> dados) {
-
+		
 		try {
-
+			//sinalizar pro php que são alunos
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 			String json = gson.toJson(dados);

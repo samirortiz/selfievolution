@@ -10,11 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import br.com.selfievolution.R;
 import br.com.selfievolution.controllers.UsuarioController;
-import br.com.selfievolution.models.UsuarioModel;
+import br.com.selfievolution.models.AlunoModel;
+import br.com.selfievolution.models.ProfessorModel;
 
 public class UsuarioActivity extends ActionBarActivity{
 
-	private UsuarioModel model;
+	private ProfessorModel modelProfessor;
+	private AlunoModel modelAluno;
 	private UsuarioController controller;
 	boolean aluno;
 	
@@ -36,7 +38,7 @@ public class UsuarioActivity extends ActionBarActivity{
 			setContentView(R.layout.activity_usuario);
 		}
 		
-		controller = new UsuarioController(model, this);		
+		controller = new UsuarioController(modelProfessor, modelAluno, this);		
 		
 	}
 	

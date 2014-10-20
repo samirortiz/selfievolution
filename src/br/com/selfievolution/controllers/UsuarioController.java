@@ -13,8 +13,8 @@ import android.content.SharedPreferences.Editor;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import br.com.selfievolution.R;
-import br.com.selfievolution.models.RoleModel;
-import br.com.selfievolution.models.UsuarioModel;
+import br.com.selfievolution.models.AlunoModel;
+import br.com.selfievolution.models.ProfessorModel;
 import br.com.selfievolution.objects.Usuario;
 import br.com.selfievolution.utils.UnixCrypt;
 import br.com.selfievolution.views.HomeActivity;
@@ -23,25 +23,31 @@ import br.com.selfievolution.views.UsuarioActivity;
 public class UsuarioController{
     
 	private UsuarioActivity activity;
-    private UsuarioModel model;
+    private ProfessorModel modelProfessor;
+    private AlunoModel modelAluno;
     
-    public UsuarioController(UsuarioModel model, UsuarioActivity activity){
+    public UsuarioController(ProfessorModel modelProfessor, AlunoModel modelAluno, UsuarioActivity activity){
         this.activity = activity;
-        this.model = model;
+        this.modelProfessor = modelProfessor;
+        this.modelAluno = modelAluno;
     }
  
     public UsuarioActivity getActivity() {
         return activity;
     }
  
-    public UsuarioModel getModel() {
-        return model;
+    public ProfessorModel getModelP() {
+        return modelProfessor;
     }    
+
+    public AlunoModel getModelA() {
+        return modelAluno;
+    }        
     
     public void salvarUsuario(){
     	
     	Usuario usuario = new Usuario();
-    	model = new UsuarioModel(activity);
+    	modelProfessor = new ProfessorModel(activity);
     	
     	final EditText nome = (EditText) activity.findViewById(R.id.nomeUsuario);
     	RadioGroup sexo = (RadioGroup) activity.findViewById(R.id.radioGroupSexo);
@@ -61,7 +67,6 @@ public class UsuarioController{
     		
 	    	usuario.setNome(nome.getText().toString());
 	    	usuario.setEmail(email.getText().toString());
-	    	usuario.setIdRole(pref.getInt("id_role", 0));
 	    	
 	    	//encriptação da senha
 	    	String crypt = UnixCrypt.crypt(email.getText().toString(),senha.getText().toString());
@@ -77,13 +82,13 @@ public class UsuarioController{
 			        break;
 			}    	
 			
-			final long idUsuario = model.insert(usuario);
+			final long idUsuario = modelProfessor.insert(usuario);
 			
 	    	if(idUsuario > 0){
 
 	    		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 				builder.setTitle("Sucesso!");
-				builder.setMessage("Usuário cadastrado com sucesso!");
+				builder.setMessage("Professor cadastrado com sucesso!");
 				builder.setPositiveButton("Entrar", new OnClickListener() {
 
 					@Override
@@ -101,9 +106,7 @@ public class UsuarioController{
 			        	
 			        	Intent i = new Intent(getActivity(), HomeActivity.class);
 			        	getActivity().startActivity(i);
-			        	
-			        					
-						
+
 					}
 				});
 				
@@ -124,7 +127,7 @@ public class UsuarioController{
     public void salvarAluno(){
     	
     	Usuario aluno = new Usuario();
-    	model = new UsuarioModel(activity);
+    	modelAluno = new AlunoModel(activity);
     	
     	SharedPreferences pref = getActivity().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
 
@@ -157,7 +160,7 @@ public class UsuarioController{
 			        break;
 			}
 			
-			long idAluno = model.insert(aluno);
+			long idAluno = modelAluno.insert(aluno);
 			
 	    	if(idAluno > 0){
 

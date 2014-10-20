@@ -3,7 +3,6 @@ package br.com.selfievolution.controllers;
 import java.util.ArrayList;
 
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -16,8 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.selfievolution.R;
+import br.com.selfievolution.models.AlunoModel;
 import br.com.selfievolution.models.HomeModel;
-import br.com.selfievolution.models.UsuarioModel;
+import br.com.selfievolution.models.ProfessorModel;
 import br.com.selfievolution.objects.Usuario;
 import br.com.selfievolution.utils.ServerDelegate;
 import br.com.selfievolution.utils.Utils;
@@ -56,8 +56,8 @@ public class HomeController{
     	ArrayList<Usuario> alunos = new ArrayList<Usuario>();
     	ArrayList<AlunoListView> dados = new ArrayList<AlunoListView>();
     	
-    	UsuarioModel modelUsuario = new UsuarioModel(activity);
-    	alunos = modelUsuario.selectByProfessor(pref.getInt("id", 0));
+    	AlunoModel modelAluno = new AlunoModel(activity);
+    	alunos = modelAluno.selectByProfessor(pref.getInt("id", 0));
     	
     	if(alunos.size() == 0){
 			
@@ -126,23 +126,25 @@ public class HomeController{
 				@Override
 				protected Void doInBackground(Void... arg0) {
 					
-					UsuarioModel modelUsuario = new UsuarioModel(getActivity());
+					ProfessorModel modelProfessor = new ProfessorModel(getActivity());
+					AlunoModel modelAluno = new AlunoModel(getActivity());
+					
 					ArrayList<Usuario> listUsuarios = new ArrayList<Usuario>();
 					
-					listUsuarios = modelUsuario.selectAllProfessoresToSync();
+					listUsuarios = modelProfessor.selectAllProfessoresToSync();
 	
 					if(ServerDelegate.sincronizarProfessores(listUsuarios).equals("ok")){
 						for (int i = 0; i < listUsuarios.size(); i++) {
-							modelUsuario.syncUsuario(listUsuarios.get(i));
+							modelProfessor.syncUsuario(listUsuarios.get(i));
 						}
 					}
-					
+
 					listUsuarios.clear();
-					listUsuarios = modelUsuario.selectAllAlunosToSync();
+					listUsuarios = modelAluno.selectAllAlunosToSync();
 					
 					if(ServerDelegate.sincronizarAlunos(listUsuarios).equals("ok")){
 						for (int i = 0; i < listUsuarios.size(); i++) {
-							modelUsuario.syncUsuario(listUsuarios.get(i));
+							modelAluno.syncUsuario(listUsuarios.get(i));
 						}
 					}				
 					
