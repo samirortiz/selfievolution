@@ -5,8 +5,8 @@ import android.widget.ImageView;
 
 public class Usuario {
 
-	private int id, id_role, id_professor;
-	private String nome, senha, email, sexo, nascimento;
+	private int id, id_role;
+	private String nome, senha, email, sexo, nascimento, email_professor;
 	private ImageView imagem;
 
 	public int getId() {
@@ -65,20 +65,20 @@ public class Usuario {
 		this.id_role = id_role;
 	}
 
-	public int getIdProfessor() {
-		return id_professor;
-	}
-
-	public void setIdProfessor(int id_professor) {
-		this.id_professor = id_professor;
-	}
-
 	public ImageView getImagem() {
 		return imagem;
 	}
 
 	public void setImagem(ImageView imagem) {
 		this.imagem = imagem;
+	}
+
+	public String getEmailProfessor() {
+		return email_professor;
+	}
+
+	public void setEmailProfessor(String email_professor) {
+		this.email_professor = email_professor;
 	}
 	
 

@@ -57,7 +57,7 @@ public class HomeController{
     	ArrayList<AlunoListView> dados = new ArrayList<AlunoListView>();
     	
     	AlunoModel modelAluno = new AlunoModel(activity);
-    	alunos = modelAluno.selectByProfessor(pref.getInt("id", 0));
+    	alunos = modelAluno.selectByProfessor(pref.getString("email", null));
     	
     	if(alunos.size() == 0){
 			

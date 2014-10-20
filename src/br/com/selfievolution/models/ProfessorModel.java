@@ -158,6 +158,7 @@ public class ProfessorModel {
 	        cv.put("nome", usuario.getNome());
 	        cv.put("email", usuario.getEmail());
 	        cv.put("senha", usuario.getSenha());
+	        cv.put("sexo", usuario.getSexo());
 	        cv.put("data_nascimento", usuario.getNascimento());
 	        rowId = db.insert(tableName, null, cv);
 

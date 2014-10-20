@@ -51,7 +51,7 @@ public class UsuarioController{
     	
     	final EditText nome = (EditText) activity.findViewById(R.id.nomeUsuario);
     	RadioGroup sexo = (RadioGroup) activity.findViewById(R.id.radioGroupSexo);
-    	EditText email = (EditText) activity.findViewById(R.id.emailUsuario);
+    	final EditText email = (EditText) activity.findViewById(R.id.emailUsuario);
     	EditText senha = (EditText) activity.findViewById(R.id.senhaUsuario);
     	
     	if(!checkEmail(email.getText().toString())){
@@ -75,10 +75,10 @@ public class UsuarioController{
 			switch (sexo.getCheckedRadioButtonId()) {
 
 			    case R.id.radioM:
-		    		usuario.setSexo("male");
+		    		usuario.setSexo("Masculino");
 			        break;
 			    case R.id.radioF:
-			    	usuario.setSexo("female");
+			    	usuario.setSexo("Feminino");
 			        break;
 			}    	
 			
@@ -99,6 +99,7 @@ public class UsuarioController{
 			        	editor.putBoolean("logado", true);
 			        	editor.putInt("id", (int)idUsuario);
 			        	editor.putString("nome", nome.getText().toString());
+			        	editor.putString("email", email.getText().toString());
 
 			        	editor.commit();
 			        	
@@ -146,7 +147,7 @@ public class UsuarioController{
 
     		aluno.setNome(nome.getText().toString());
     		aluno.setEmail(email.getText().toString());
-    		aluno.setIdProfessor(pref.getInt("id", 0));
+    		aluno.setEmailProfessor(pref.getString("email", null));
 	    	
     		aluno.setIdRole(2);
 

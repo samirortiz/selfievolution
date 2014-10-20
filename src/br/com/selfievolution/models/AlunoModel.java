@@ -14,7 +14,7 @@ import br.com.selfievolution.utils.UnixCrypt;
 public class AlunoModel {
 	private SQLiteDatabase db;
 	private String tableName = "alunos";
-	private String[] columns = new String[] { "id", "nome", "email", "senha", "sexo", "data_nascimento", "id_professor", "sync" };
+	private String[] columns = new String[] { "id", "nome", "email", "senha", "sexo", "data_nascimento", "email_professor", "sync" };
 	
 	public AlunoModel(Context ctx) {
 		db = DBHandler.getInstance(ctx).getWritableDatabase();
@@ -44,7 +44,7 @@ public class AlunoModel {
 
 	public ContentValues selectUser(String id){
 
-		Cursor c = db.rawQuery("SELECT id, nome, email, sexo, data_nascimento, id_professor FROM alunos " +
+		Cursor c = db.rawQuery("SELECT id, nome, email, sexo, data_nascimento, email_professor FROM alunos " +
 								"WHERE id = ?", new String[] {id});
 		
 		if(c.moveToFirst()){
@@ -54,7 +54,7 @@ public class AlunoModel {
 			cv.put("email", c.getString(2));
 			cv.put("sexo", c.getString(3));
 			cv.put("data_nascimento", c.getString(4));
-			cv.put("id_professor", c.getString(5));
+			cv.put("email_professor", c.getString(5));
 
 			return cv;
 			
@@ -94,7 +94,7 @@ public class AlunoModel {
     		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
     		usuario.setSexo(c.getString(c.getColumnIndex("sexo")));
     		usuario.setNascimento(c.getString(c.getColumnIndex("data_nascimento")));
-    		usuario.setIdProfessor(c.getInt(c.getColumnIndex("id_professor")));
+    		usuario.setEmailProfessor(c.getString(c.getColumnIndex("email_professor")));
 
     		list.add(usuario);
     	}
@@ -105,7 +105,7 @@ public class AlunoModel {
 	public ArrayList<Usuario> selectAllProfessoresToSync() {
 		
 		Cursor c = db.rawQuery("SELECT * FROM alunos " +
-				"WHERE sync = ? and id_professor = ?", new String[] {"0", "0"});
+				"WHERE sync = ?", new String[] {"0"});
 
     	ArrayList<Usuario> list = new ArrayList<Usuario>();
     	
@@ -118,13 +118,11 @@ public class AlunoModel {
     		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
     		usuario.setSexo(c.getString(c.getColumnIndex("sexo")));
     		usuario.setNascimento(c.getString(c.getColumnIndex("data_nascimento")));
-    		usuario.setIdProfessor(c.getInt(c.getColumnIndex("id_professor")));
+    		usuario.setEmailProfessor(c.getString(c.getColumnIndex("email_professor")));
 
     		list.add(usuario);
+
     		
-    		
-    		db.rawQuery("UPDATE alunos SET sync = ?" +
-						"WHERE id = ?", new String[] {"true", String.valueOf(c.getInt(c.getColumnIndex("id")))});
     	}
     	
     	return list;
@@ -146,13 +144,10 @@ public class AlunoModel {
     		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
     		usuario.setSexo(c.getString(c.getColumnIndex("sexo")));
     		usuario.setNascimento(c.getString(c.getColumnIndex("data_nascimento")));
-    		usuario.setIdProfessor(c.getInt(c.getColumnIndex("id_professor")));
+    		usuario.setEmailProfessor(c.getString(c.getColumnIndex("email_professor")));
 
     		list.add(usuario);
-    		
-    		
-    		db.rawQuery("UPDATE alunos SET sync = ?" +
-						"WHERE id = ?", new String[] {"true", String.valueOf(c.getInt(c.getColumnIndex("id")))});
+
     	}
     	
     	return list;
@@ -174,7 +169,7 @@ public class AlunoModel {
     		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
     		usuario.setSexo(c.getString(c.getColumnIndex("sexo")));
     		usuario.setNascimento(c.getString(c.getColumnIndex("data_nascimento")));
-    		usuario.setIdProfessor(c.getInt(c.getColumnIndex("id_professor")));
+    		usuario.setEmailProfessor(c.getString(c.getColumnIndex("email_professor")));
 
     		list.add(usuario);
 
@@ -183,9 +178,9 @@ public class AlunoModel {
     	return list;
 	}	
 	
-	public ArrayList<Usuario> selectByProfessor(Integer idProfessor) {
+	public ArrayList<Usuario> selectByProfessor(String emailProfessor) {
 
-		Cursor c = db.rawQuery("SELECT u.id, u.nome FROM alunos u WHERE id_professor = ?", new String[] {String.valueOf(idProfessor)});
+		Cursor c = db.rawQuery("SELECT u.id, u.nome FROM alunos u WHERE email_professor like ?", new String[] {String.valueOf(emailProfessor)});
     	
     	ArrayList<Usuario> list = new ArrayList<Usuario>();
     	
@@ -197,6 +192,8 @@ public class AlunoModel {
     		
     		list.add(usuario);
     	}
+    	
+    	c.close();
     	
     	return list;
 	}	
@@ -214,7 +211,7 @@ public class AlunoModel {
 	        cv.put("senha", usuario.getSenha());
 	        cv.put("sexo", usuario.getSexo());
 	        cv.put("data_nascimento", usuario.getNascimento());
-	        cv.put("id_professor", usuario.getIdProfessor());
+	        cv.put("email_professor", usuario.getEmailProfessor());
 
 	        rowId = db.insert(tableName, null, cv);
 

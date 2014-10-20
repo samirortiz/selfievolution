@@ -26,7 +26,7 @@ public class ServerDelegate {
 
 	//private static String urlServidor = "http://agronet.agrobrasilseguros.com.br/rotinas/agrows.php";
 	//private static String urlServidor = "http://agronet.samir.dev.com:81/agrows.php";
-	private static String urlServidor = "http://10.0.0.13/selfie/ws.php";
+	private static String urlServidor = "http://10.20.20.18/selfie/ws.php";
 
 	private static InputStream getWebData(String url) {
 
