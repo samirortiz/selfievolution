@@ -28,7 +28,6 @@ public class AvaliacaoActivity extends ActionBarActivity{
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setHomeButtonEnabled(true);
-		actionBar.setTitle("Voltar");
 		
 		//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); 
 

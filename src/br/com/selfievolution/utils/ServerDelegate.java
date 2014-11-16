@@ -4,29 +4,27 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 public class ServerDelegate {
 
 	//private static String urlServidor = "http://agronet.agrobrasilseguros.com.br/rotinas/agrows.php";
 	//private static String urlServidor = "http://agronet.samir.dev.com:81/agrows.php";
-	private static String urlServidor = "http://10.20.20.18/selfie/ws.php";
+	private static String urlServidor = "http://selfievolution.herokuapp.com/api/v1/pupils";
 
 	private static InputStream getWebData(String url) {
 
@@ -55,17 +53,24 @@ public class ServerDelegate {
 
 	private static InputStream postWebData(String url, String json) {
 
+		json = "{\"pupil\":{\"email\":\"ivoneijr@gmail.coaa\",\"name\":\"Ivonei 2\",\"phone\":\"51 91879477\",\"webpage\":\"mypage.com/ivoneijr\",\"sex\":\"M\",\"password\":\"ERROR2\",\"facebook\":\"/ivoneijr\",\"twitter\":\"tweeeter/te\"}}";
+
+		System.out.println(json);
+		
+		
+		
+		
 		HttpClient client = new DefaultHttpClient();
 		HttpResponse response;
 		try {
 			HttpPost post = new HttpPost(url);
 			post.setHeader("Accept", "application/json");
-            post.setHeader("Content-type", "application/json;charset=UTF-8");
+            post.setHeader("Content-type", "application/json");
 			post.getParams().setParameter("jsonpost", json);
             
 			StringEntity se = new StringEntity(json);
 			se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-			se.setContentType(new BasicHeader(HTTP.CHARSET_PARAM, "utf-8"));
+			//se.setContentType(new BasicHeader(HTTP.CHARSET_PARAM, "utf-8"));
 
 			post.setEntity(se);
 
@@ -91,9 +96,12 @@ public class ServerDelegate {
 			//sinalizar pro php que são professores
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-			String json = gson.toJson(dados);
-
-			InputStream is = postWebData(urlServidor, json);
+			//String json = gson.toJson(dados);
+		    JsonElement je = gson.toJsonTree(dados);
+		    JsonObject jo = new JsonObject();
+		    jo.add("pupils", je);
+			//System.out.println(jo.toString());
+			InputStream is = postWebData(urlServidor, jo.toString());
 			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 			
 			StringBuilder str = new StringBuilder();
@@ -101,9 +109,10 @@ public class ServerDelegate {
 
 			while ((line = reader.readLine()) != null) {
 				str.append(line);
+				System.out.println(str.toString());
 			}
 
-			System.out.println(str);
+			//System.out.println(str);
 			return str.toString();
 			
 		}catch(Exception e){
@@ -120,9 +129,16 @@ public class ServerDelegate {
 			//sinalizar pro php que são alunos
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-			String json = gson.toJson(dados);
+			//String json = gson.toJson(dados);
+		    JsonElement je = gson.toJsonTree(dados.get(0));
+		    JsonObject jo = new JsonObject();
+		    jo.add("pupil", je);
+		    
+		    
+		    System.out.println("BLABLABLA");
+			System.out.println(jo.toString());			
 
-			InputStream is = postWebData(urlServidor, json);
+			InputStream is = postWebData(urlServidor, jo.toString());
 			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 			
 			StringBuilder str = new StringBuilder();
@@ -132,7 +148,7 @@ public class ServerDelegate {
 				str.append(line);
 			}
 
-			System.out.println(str);
+			//System.out.println(str);
 			return str.toString();
 			
 		}catch(Exception e){

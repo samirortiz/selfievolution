@@ -66,6 +66,7 @@ public class AvaliacaoController{
 					i.putExtra("idAluno", getActivity().getIntent().getStringExtra("idAluno"));
 					i.putExtra("nomeAluno", getActivity().getIntent().getStringExtra("nomeAluno"));
 					activity.startActivity(i);
+					getActivity().finish();
 					
 				}
 			});

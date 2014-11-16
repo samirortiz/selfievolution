@@ -35,7 +35,7 @@ public class IndexController{
     	//testa a sessao - revisar
     	
     	SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("SelfieSession", 0); 
-
+System.out.println(pref.getBoolean("logado", false));
     	if(pref.getBoolean("logado", false)){
 
     		Intent i = new Intent(getActivity(), HomeActivity.class);

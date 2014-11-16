@@ -31,14 +31,12 @@ public class HomeController{
 	private HomeActivity activity;
     private HomeModel model;
     ProgressDialog pd;
-    final SharedPreferences pref;
+    SharedPreferences pref;
     
     public HomeController(HomeModel model, HomeActivity activity){
         this.activity = activity;
         this.model = model;
-        
-        pref = getActivity().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
-       
+
     }
  
     public HomeActivity getActivity() {
@@ -55,6 +53,7 @@ public class HomeController{
     	final ListView list = (ListView) activity.findViewById(R.id.listAlunos);
     	ArrayList<Usuario> alunos = new ArrayList<Usuario>();
     	ArrayList<AlunoListView> dados = new ArrayList<AlunoListView>();
+    	pref = getActivity().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
     	
     	AlunoModel modelAluno = new AlunoModel(activity);
     	alunos = modelAluno.selectByProfessor(pref.getString("email", null));
@@ -131,19 +130,20 @@ public class HomeController{
 					
 					ArrayList<Usuario> listUsuarios = new ArrayList<Usuario>();
 					
-					listUsuarios = modelProfessor.selectAllProfessoresToSync();
+					//listUsuarios = modelProfessor.selectAllProfessoresToSync();
 	
-					if(ServerDelegate.sincronizarProfessores(listUsuarios).equals("ok")){
+/*					if(ServerDelegate.sincronizarProfessores(listUsuarios).equals("ok")){
 						for (int i = 0; i < listUsuarios.size(); i++) {
 							modelProfessor.syncUsuario(listUsuarios.get(i));
 						}
-					}
+					}*/
 
 					listUsuarios.clear();
 					listUsuarios = modelAluno.selectAllAlunosToSync();
 					
 					if(ServerDelegate.sincronizarAlunos(listUsuarios).equals("ok")){
 						for (int i = 0; i < listUsuarios.size(); i++) {
+
 							modelAluno.syncUsuario(listUsuarios.get(i));
 						}
 					}				

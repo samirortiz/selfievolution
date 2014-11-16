@@ -33,7 +33,6 @@ public class AvaliacoesActivity extends ActionBarActivity{
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setHomeButtonEnabled(true);
-		actionBar.setTitle("Home");
 		
 		SharedPreferences pref = getApplicationContext().getSharedPreferences("SelfieSession", 0);
 

@@ -138,7 +138,7 @@ public class AlunoModel {
     	while (c.moveToNext()) {
     		
     		Usuario usuario = new Usuario();
-    		usuario.setId(c.getInt(c.getColumnIndex("id")));
+//    		usuario.setId(c.getInt(c.getColumnIndex("id")));
     		usuario.setNome(c.getString(c.getColumnIndex("nome")));
     		usuario.setEmail(c.getString(c.getColumnIndex("email")));
     		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
@@ -163,7 +163,7 @@ public class AlunoModel {
     	while (c.moveToNext()) {
     		
     		Usuario usuario = new Usuario();
-    		usuario.setId(c.getInt(c.getColumnIndex("id")));
+//    		usuario.setId(c.getInt(c.getColumnIndex("id")));
     		usuario.setNome(c.getString(c.getColumnIndex("nome")));
     		usuario.setEmail(c.getString(c.getColumnIndex("email")));
     		usuario.setSenha(c.getString(c.getColumnIndex("senha")));

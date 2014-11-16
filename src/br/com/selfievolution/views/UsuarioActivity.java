@@ -32,7 +32,6 @@ public class UsuarioActivity extends ActionBarActivity{
 		if(aluno){
 			ActionBar actionBar = getSupportActionBar();
 			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setTitle("Home");;
 			setContentView(R.layout.activity_cadastro_aluno);
 		}else{
 			setContentView(R.layout.activity_usuario);
