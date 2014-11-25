@@ -14,7 +14,7 @@ import br.com.selfievolution.utils.UnixCrypt;
 public class AlunoModel {
 	private SQLiteDatabase db;
 	private String tableName = "alunos";
-	private String[] columns = new String[] { "id", "nome", "email", "senha", "sexo", "data_nascimento", "email_professor", "sync" };
+	private String[] columns = new String[] { "id", "nome", "email", "senha", "sexo", "data_nascimento", "email_treinador", "sync" };
 	
 	public AlunoModel(Context ctx) {
 		db = DBHandler.getInstance(ctx).getWritableDatabase();
@@ -44,7 +44,7 @@ public class AlunoModel {
 
 	public ContentValues selectUser(String id){
 
-		Cursor c = db.rawQuery("SELECT id, nome, email, sexo, data_nascimento, email_professor FROM alunos " +
+		Cursor c = db.rawQuery("SELECT id, nome, email, sexo, data_nascimento, email_treinador FROM alunos " +
 								"WHERE id = ?", new String[] {id});
 		
 		if(c.moveToFirst()){
@@ -54,7 +54,7 @@ public class AlunoModel {
 			cv.put("email", c.getString(2));
 			cv.put("sexo", c.getString(3));
 			cv.put("data_nascimento", c.getString(4));
-			cv.put("email_professor", c.getString(5));
+			cv.put("email_treinador", c.getString(5));
 
 			return cv;
 			
@@ -94,7 +94,7 @@ public class AlunoModel {
     		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
     		usuario.setSexo(c.getString(c.getColumnIndex("sexo")));
     		usuario.setNascimento(c.getString(c.getColumnIndex("data_nascimento")));
-    		usuario.setEmailProfessor(c.getString(c.getColumnIndex("email_professor")));
+    		usuario.setEmailTreinador(c.getString(c.getColumnIndex("email_treinador")));
 
     		list.add(usuario);
     	}
@@ -102,7 +102,7 @@ public class AlunoModel {
     	return list;
 	}
 
-	public ArrayList<Usuario> selectAllProfessoresToSync() {
+	public ArrayList<Usuario> selectAllTreinadoresToSync() {
 		
 		Cursor c = db.rawQuery("SELECT * FROM alunos " +
 				"WHERE sync = ?", new String[] {"0"});
@@ -118,7 +118,7 @@ public class AlunoModel {
     		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
     		usuario.setSexo(c.getString(c.getColumnIndex("sexo")));
     		usuario.setNascimento(c.getString(c.getColumnIndex("data_nascimento")));
-    		usuario.setEmailProfessor(c.getString(c.getColumnIndex("email_professor")));
+    		usuario.setEmailTreinador(c.getString(c.getColumnIndex("email_treinador")));
 
     		list.add(usuario);
 
@@ -144,7 +144,7 @@ public class AlunoModel {
     		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
     		usuario.setSexo(c.getString(c.getColumnIndex("sexo")));
     		usuario.setNascimento(c.getString(c.getColumnIndex("data_nascimento")));
-    		usuario.setEmailProfessor(c.getString(c.getColumnIndex("email_professor")));
+    		usuario.setEmailTreinador(c.getString(c.getColumnIndex("email_treinador")));
 
     		list.add(usuario);
 
@@ -169,7 +169,7 @@ public class AlunoModel {
     		usuario.setSenha(c.getString(c.getColumnIndex("senha")));
     		usuario.setSexo(c.getString(c.getColumnIndex("sexo")));
     		usuario.setNascimento(c.getString(c.getColumnIndex("data_nascimento")));
-    		usuario.setEmailProfessor(c.getString(c.getColumnIndex("email_professor")));
+    		usuario.setEmailTreinador(c.getString(c.getColumnIndex("email_treinador")));
 
     		list.add(usuario);
 
@@ -178,9 +178,9 @@ public class AlunoModel {
     	return list;
 	}	
 	
-	public ArrayList<Usuario> selectByProfessor(String emailProfessor) {
+	public ArrayList<Usuario> selectByTreinador(String emailTreinador) {
 
-		Cursor c = db.rawQuery("SELECT u.id, u.nome FROM alunos u WHERE email_professor like ?", new String[] {String.valueOf(emailProfessor)});
+		Cursor c = db.rawQuery("SELECT u.id, u.nome FROM alunos u WHERE email_treinador like ?", new String[] {String.valueOf(emailTreinador)});
     	
     	ArrayList<Usuario> list = new ArrayList<Usuario>();
     	
@@ -211,7 +211,7 @@ public class AlunoModel {
 	        cv.put("senha", usuario.getSenha());
 	        cv.put("sexo", usuario.getSexo());
 	        cv.put("data_nascimento", usuario.getNascimento());
-	        cv.put("email_professor", usuario.getEmailProfessor());
+	        cv.put("email_treinador", usuario.getEmailTreinador());
 
 	        rowId = db.insert(tableName, null, cv);
 

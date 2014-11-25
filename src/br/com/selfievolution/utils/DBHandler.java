@@ -15,7 +15,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
 	private DBHandler(Context context) {
 		
-		super(context, Environment.getExternalStorageDirectory().getPath()+"/selfie.db", null, 1);
+		super(context, "selfie.db", null, 1);
 	}
 
 
@@ -57,14 +57,14 @@ public class DBHandler extends SQLiteOpenHelper {
 		strb1.append(" senha varchar(100),");
 		strb1.append(" sexo varchar(100),");
 		strb1.append(" data_nascimento date,");
-		strb1.append(" email_professor varchar(100),");
+		strb1.append(" email_treinador varchar(100),");
 		strb1.append(" sync integer default 0)");
 
 		db.execSQL(strb1.toString());        	
 		
 		StringBuilder strb10 = new StringBuilder();
 
-		strb10.append(" CREATE TABLE IF NOT EXISTS professores (");
+		strb10.append(" CREATE TABLE IF NOT EXISTS treinadores (");
 		strb10.append(" id integer primary key autoincrement,");
 		strb10.append(" nome varchar(100),");
 		strb10.append(" email varchar(100),");
@@ -83,7 +83,6 @@ public class DBHandler extends SQLiteOpenHelper {
 		strb2.append(" id integer primary key autoincrement,");
 		strb2.append(" id_aluno integer,");
 		strb2.append(" data date,");
-		strb2.append(" idade integer,");
 		strb2.append(" peso decimal(10,2),");
 		strb2.append(" altura decimal(10,2),");
 		strb2.append(" triceps decimal(10,2),");

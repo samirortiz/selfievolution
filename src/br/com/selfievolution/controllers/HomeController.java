@@ -17,7 +17,7 @@ import android.widget.Toast;
 import br.com.selfievolution.R;
 import br.com.selfievolution.models.AlunoModel;
 import br.com.selfievolution.models.HomeModel;
-import br.com.selfievolution.models.ProfessorModel;
+import br.com.selfievolution.models.TreinadorModel;
 import br.com.selfievolution.objects.Usuario;
 import br.com.selfievolution.utils.ServerDelegate;
 import br.com.selfievolution.utils.Utils;
@@ -56,7 +56,7 @@ public class HomeController{
     	pref = getActivity().getSharedPreferences("SelfieSession", 0); // 0 - for private mode
     	
     	AlunoModel modelAluno = new AlunoModel(activity);
-    	alunos = modelAluno.selectByProfessor(pref.getString("email", null));
+    	alunos = modelAluno.selectByTreinador(pref.getString("email", null));
     	
     	if(alunos.size() == 0){
 			
@@ -125,16 +125,16 @@ public class HomeController{
 				@Override
 				protected Void doInBackground(Void... arg0) {
 					
-					ProfessorModel modelProfessor = new ProfessorModel(getActivity());
+					TreinadorModel modelTreinador = new TreinadorModel(getActivity());
 					AlunoModel modelAluno = new AlunoModel(getActivity());
 					
 					ArrayList<Usuario> listUsuarios = new ArrayList<Usuario>();
 					
-					//listUsuarios = modelProfessor.selectAllProfessoresToSync();
+					//listUsuarios = modelTreinador.selectAllTreinadoresToSync();
 	
-/*					if(ServerDelegate.sincronizarProfessores(listUsuarios).equals("ok")){
+/*					if(ServerDelegate.sincronizarTreinadores(listUsuarios).equals("ok")){
 						for (int i = 0; i < listUsuarios.size(); i++) {
-							modelProfessor.syncUsuario(listUsuarios.get(i));
+							modelTreinador.syncUsuario(listUsuarios.get(i));
 						}
 					}*/
 

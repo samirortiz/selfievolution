@@ -52,6 +52,7 @@ public class RoleController{
     	
     	Intent i = new Intent(getActivity(), UsuarioActivity.class);
     	getActivity().startActivity(i);
+    	getActivity().finish();
     	
     }
 

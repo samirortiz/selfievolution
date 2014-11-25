@@ -11,11 +11,11 @@ import android.view.View;
 import br.com.selfievolution.R;
 import br.com.selfievolution.controllers.UsuarioController;
 import br.com.selfievolution.models.AlunoModel;
-import br.com.selfievolution.models.ProfessorModel;
+import br.com.selfievolution.models.TreinadorModel;
 
 public class UsuarioActivity extends ActionBarActivity{
 
-	private ProfessorModel modelProfessor;
+	private TreinadorModel modelProfessor;
 	private AlunoModel modelAluno;
 	private UsuarioController controller;
 	boolean aluno;

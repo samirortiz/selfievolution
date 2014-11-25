@@ -12,7 +12,7 @@ import android.widget.Toast;
 import br.com.selfievolution.R;
 import br.com.selfievolution.controllers.IndexController;
 import br.com.selfievolution.models.IndexModel;
-import br.com.selfievolution.models.ProfessorModel;
+import br.com.selfievolution.models.TreinadorModel;
 
 import com.facebook.Session;
 
@@ -88,7 +88,7 @@ public class IndexActivity extends FragmentActivity {
     	
     	if(!email.getText().toString().equals("") && !senha.getText().toString().equals("")){
     	
-    		ProfessorModel usuario = new ProfessorModel(this);
+    		TreinadorModel usuario = new TreinadorModel(this);
     		
     		int idUsuario = usuario.autenticacao(email.getText().toString(), senha.getText().toString());
     		
@@ -102,6 +102,8 @@ public class IndexActivity extends FragmentActivity {
 	        	editor.putInt("id", idUsuario);
 	        	editor.putBoolean("logado", true);
 	        	editor.putString("nome", cv.get("nome").toString());
+	        	editor.putString("email", email.getText().toString());
+
 	        	editor.commit();
 	        	
 	        	Intent i = new Intent(this, HomeActivity.class);

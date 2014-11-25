@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import br.com.selfievolution.R;
 import br.com.selfievolution.models.AlunoModel;
-import br.com.selfievolution.models.ProfessorModel;
+import br.com.selfievolution.models.TreinadorModel;
 import br.com.selfievolution.objects.Usuario;
 import br.com.selfievolution.utils.UnixCrypt;
 import br.com.selfievolution.views.HomeActivity;
@@ -23,12 +23,12 @@ import br.com.selfievolution.views.UsuarioActivity;
 public class UsuarioController{
     
 	private UsuarioActivity activity;
-    private ProfessorModel modelProfessor;
+    private TreinadorModel modelTreinador;
     private AlunoModel modelAluno;
     
-    public UsuarioController(ProfessorModel modelProfessor, AlunoModel modelAluno, UsuarioActivity activity){
+    public UsuarioController(TreinadorModel modelTreinador, AlunoModel modelAluno, UsuarioActivity activity){
         this.activity = activity;
-        this.modelProfessor = modelProfessor;
+        this.modelTreinador = modelTreinador;
         this.modelAluno = modelAluno;
     }
  
@@ -36,18 +36,18 @@ public class UsuarioController{
         return activity;
     }
  
-    public ProfessorModel getModelP() {
-        return modelProfessor;
+    public TreinadorModel getModelProfessor() {
+        return modelTreinador;
     }    
 
-    public AlunoModel getModelA() {
+    public AlunoModel getModelAluno() {
         return modelAluno;
     }        
     
     public void salvarUsuario(){
     	
     	Usuario usuario = new Usuario();
-    	modelProfessor = new ProfessorModel(activity);
+    	modelTreinador = new TreinadorModel(activity);
     	
     	final EditText nome = (EditText) activity.findViewById(R.id.nomeUsuario);
     	RadioGroup sexo = (RadioGroup) activity.findViewById(R.id.radioGroupSexo);
@@ -82,13 +82,13 @@ public class UsuarioController{
 			        break;
 			}    	
 			
-			final long idUsuario = modelProfessor.insert(usuario);
+			final long idUsuario = modelTreinador.insert(usuario);
 			
 	    	if(idUsuario > 0){
 
 	    		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 				builder.setTitle("Sucesso!");
-				builder.setMessage("Professor cadastrado com sucesso!");
+				builder.setMessage("Treinador cadastrado com sucesso!");
 				builder.setPositiveButton("Entrar", new OnClickListener() {
 
 					@Override
@@ -147,7 +147,7 @@ public class UsuarioController{
 
     		aluno.setNome(nome.getText().toString());
     		aluno.setEmail(email.getText().toString());
-    		aluno.setEmailProfessor(pref.getString("email", null));
+    		aluno.setEmailTreinador(pref.getString("email", null));
 	    	
     		aluno.setIdRole(2);
 
