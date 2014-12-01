@@ -1,106 +1,132 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f0f0f0"
+    android:orientation="vertical"
     tools:context="${packageName}.${activityClass}" >
 
-    <RadioGroup
-        android:id="@+id/sexoAluno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/emailALuno"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-        <RadioButton
-            android:id="@+id/feminino"
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="128px"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/add_user" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="19dp"
+            android:layout_weight="1"
+            android:text="Cadastro de Aluno"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/nomeAluno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="18dp"
+            android:ems="10"
+            android:hint="Nome do Aluno"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/emailALuno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:ems="10"
+            android:hint="Email do Aluno"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/editDtNascimento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="18dp"
+            android:ems="10"
+            android:hint="DD/MM/YYYY"
+            android:inputType="date" >
+
+            <requestFocus />
+        </EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp" >
+
+        <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Feminino" />
-    </RadioGroup>
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="25dp"
+            android:text="Sexo"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/sexoAluno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/masculino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Masculino" />
+
+            <RadioButton
+                android:id="@+id/feminino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Feminino" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/sexoAluno"
-        android:layout_marginBottom="20dp"
-        android:layout_toLeftOf="@+id/sexoAluno"
-        android:text="Sexo"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:gravity="right" >
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="128px"
-        android:layout_height="128px"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"
-        android:src="@drawable/add_user" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Salvar"
+            android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
-        android:text="Cadastro de Aluno"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="salvarAluno"
+            android:src="@drawable/arrow" />
 
-    <EditText
-        android:id="@+id/nomeAluno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/emailALuno"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="21dp"
-        android:ems="10"
-        android:hint="Nome do Aluno"
-        android:inputType="textPersonName" />
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/emailALuno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/nomeAluno"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:hint="Email do Aluno"
-        android:inputType="textEmailAddress" >
-
-        <requestFocus />
-    </EditText>
-
-    <RadioButton
-        android:id="@+id/masculino"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/sexoAluno"
-        android:layout_below="@+id/emailALuno"
-        android:layout_marginTop="20dp"
-        android:checked="true"
-        android:text="Masculino" />
-
-    <ImageButton
-        android:id="@+id/imageButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="24dp"
-        android:layout_toRightOf="@+id/emailALuno"
-        android:onClick="salvarAluno"
-        android:src="@drawable/arrow"/>
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageButton1"
-        android:layout_alignRight="@+id/emailALuno"
-        android:layout_alignTop="@+id/imageButton1"
-        android:text="Salvar"
-        android:textSize="40px" />
-
-</RelativeLayout>
+</LinearLayout>
