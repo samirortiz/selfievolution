@@ -8,6 +8,6 @@ public class DobrasActivity extends Activity{
 
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_dobras);
+		setContentView(R.layout.activity_avaliacao);
 	}
 }

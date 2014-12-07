@@ -70,7 +70,7 @@ public class AvaliacoesController{
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					// TODO Auto-generated method stub
-					Intent i = new Intent(getActivity(), AvaliacaoActivity.class);
+					Intent i = new Intent(getActivity(), ResultadoAvaliacaoActivity.class);
 					
 					i.putExtra("idAluno", list.getItemAtPosition(position).getClass());
 
