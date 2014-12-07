@@ -33,11 +33,10 @@
 
     <!-- Strings for activity ...res\layout\activity_cadastro_aluno.xml -->
     <string name="text_addAluno">Cadastro de Aluno</string>
-    
-    
+
     <!--
     Strings for activity ...res\layout\activity_index.xml
-    &#8230; is the unicode for ... (three dots).
+    &#8230; is the unicode for ... (three dots).
     -->
     <string name="text_withoutEvaluation">Sem avaliações até o momento&#8230;</string>
 
@@ -46,7 +45,7 @@
     <string name="button_tryAgain">Tentar novamente</string>
     <string name="title_activity_dobras">Dobras</string>
     <string name="action_settings">Settings</string>
-    
+
     <!-- Strings for activity ..res\layout\activity_dobra.xml -->
     <string name="text_headDobra">Calculo de dobras</string>
     <string name="text_subescapular">Subescapular</string>
@@ -57,5 +56,6 @@
     <string name="text_abdominal">Abdôminal</string>
     <string name="text_femural">Femural Médio</string>
     <string name="button_calc">Calcular</string>
+    <string name="title_activity_detalhes_avaliacao">DetalhesAvaliacao</string>
 
 </resources>

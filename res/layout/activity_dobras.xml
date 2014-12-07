@@ -1,6 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-<<<<<<< HEAD
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="br.com.selfievolution.Dobras" >
+    tools:context="br.com.selfievolution.Dobras"
+    android:background="#f0f0f0" >
 
     <TextView
         android:id="@+id/textHead"
@@ -22,20 +22,10 @@
         android:layout_height="wrap_content"
         android:text="@string/text_subescapular" />
 
-=======
-    android:id="@+id/LinearLayout1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f0f0f0"
-    android:orientation="vertical"
-    tools:context="${packageName}.${activityClass}" >
-
->>>>>>> origin/master
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-<<<<<<< HEAD
         <EditText
             android:id="@+id/editSubescapular1"
             android:layout_width="wrap_content"
@@ -289,93 +279,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_calc" />
-=======
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:src="@drawable/biceps_sel" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="@string/text_head_evaluation"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="20dp"
-            android:text="@string/text_age"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <EditText
-            android:id="@+id/idade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="-20dp"
-            android:ems="10"
-            android:inputType="number" >
-
-            <requestFocus />
-        </EditText>
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="20dp"
-            android:text="@string/text_weight"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <EditText
-            android:id="@+id/peso"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="-20dp"
-            android:ems="10"
-            android:inputType="numberDecimal" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="20dp"
-            android:text="@string/text_height" />
-
-        <EditText
-            android:id="@+id/altura"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="-20dp"
-            android:ems="10"
-            android:inputType="numberDecimal" />
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="20dp"
-            android:onClick="salvarAvaliacao"
-            android:text="@string/button_save" />
->>>>>>> origin/master
     </LinearLayout>
 
 </LinearLayout>
